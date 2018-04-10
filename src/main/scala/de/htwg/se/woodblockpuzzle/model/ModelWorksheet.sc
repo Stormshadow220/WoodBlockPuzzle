@@ -1,12 +1,23 @@
-case class Cell(x:Int, y:Int)
+case class Cell(free: Boolean)
 
-val cell1 = Cell(4,5)
-cell1.x
-cell1.y
+var cell1 = Cell(true)
+cell1.free
 
-case class Field(cells: Array[Cell])
+case class Field(){
+  var cells: Array[Array[Cell]]
+}
 
-val field1 = Field(Array.ofDim[Cell](1))
-field1.cells(0)=cell1
-field1.cells(0).x
-field1.cells(0).y
+
+
+var field1 = Field()
+field1.cells(2)(2).free = false
+
+for (c <- field1.cells) {
+  for (ck <- c) {
+    ck.free = true
+  }
+}
+
+field1.cells(2)(5).free.false
+
+class Person()
