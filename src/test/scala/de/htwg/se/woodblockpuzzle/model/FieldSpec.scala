@@ -19,4 +19,5 @@ class FieldSpec extends WordSpec with Matchers {
         field + block should be(field)
       }
     }
+  
 }
