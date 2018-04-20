@@ -9,10 +9,9 @@ import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class FieldSpec extends WordSpec with Matchers {
-  "A Field" when {
-    "new" should {
+  "A new Field" should {
       val field = Field()
-      "each cell isfree be true"  in {
+      "each cell isblocked be '0"  in {
       for (y <- 0 to fieldsize) {
         for (x <- 0 to fieldsize) {
           field.cells(x)(y).isfree should be(true)
