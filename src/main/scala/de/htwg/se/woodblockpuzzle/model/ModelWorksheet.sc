@@ -25,11 +25,11 @@ case class Field(){
 
   override def toString: String = {
     var str = ""
-    for (y <- 0 to fieldsize-1){
-      for (x <- 0 to fieldsize-1) {
-        str += this.cells(x)(y).isblocked+" "
+    for (y <- 0 to fieldsize-1) {
+      for (x <- 0 to fieldsize - 1) {
+        str += this.cells(x)(y).isblocked + " "
       }
-      str += ("\n")
+      str += "\n"
     }
     str
   }
