@@ -19,9 +19,13 @@ class FieldSpec extends WordSpec with Matchers {
        field + block should be(field)
      }
      "add a not empty block to a empty field" in{
-       val block = Block()
+       val block = Block(0)
        block.cells(0)(0).isblocked = 1
        field + block shouldNot be(field)
      }
+      "add a unempty block to a unempty field" in{
+        val block = Block()
+
+      }
   }
 }

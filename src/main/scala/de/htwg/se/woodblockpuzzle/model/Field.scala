@@ -9,8 +9,8 @@ case class Field() {
     }
   }
   def + (that:Block):Field={
-    for (y <- 0 until fieldsize;
-         x <- 0 until fieldsize) {
+    for (y <- 0 until that.blockmax;
+         x <- 0 until that.blockmax) {
       this.cells(x)(y)=this.cells(x)(y) + that.cells(x)(y)
     }
     this

@@ -15,8 +15,8 @@ case class Field(){
       cells(x)(y) = Cell(0)
     }
   }
-  def + (that:Block):Field={
-    for (y <- 0 until fieldsize;
+  def + (that:Block, xpos:Integer, ypos:Integer):Field={
+    for (y <- ypos until fieldsize;
          x <- 0 until fieldsize) {
       this.cells(x)(y)=this.cells(x)(y) + that.cells(x)(y)
     }
