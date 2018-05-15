@@ -16,7 +16,7 @@ case class Field(){
     }
   }
   def + (that:Block, xpos:Integer, ypos:Integer):Field={
-    for (y <- ypos until fieldsize;
+    for (y <- 0 until fieldsize;
          x <- 0 until fieldsize) {
       this.cells(x)(y)=this.cells(x)(y) + that.cells(x)(y)
     }
@@ -25,8 +25,8 @@ case class Field(){
 
   override def toString: String = {
     var str = ""
-    for (y <- 0 to fieldsize-1) {
-      for (x <- 0 to fieldsize - 1) {
+    for (y <- 0 until fieldsize) {
+      for (x <- 0 until fieldsize) {
         str += this.cells(x)(y).isblocked + " "
       }
       str += "\n"
@@ -50,7 +50,7 @@ kleinerblock.cells(0)(0).isblocked = 1
 kleinerblock.cells(1)(0).isblocked = 1
 kleinerblock.cells(0)(1).isblocked = 1
 
-field1 = field1 + kleinerblock
+//field1 = field1 + kleinerblock
 //field1.cells(0)(0).isblocked = field1.cells(0)(0).isblocked + kleinerblock.cells(0)(0).isblocked
 //field1 + kleinerblock
 print(field1.cells(2)(2))
