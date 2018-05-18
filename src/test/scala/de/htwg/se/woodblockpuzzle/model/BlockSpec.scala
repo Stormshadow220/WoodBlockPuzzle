@@ -179,6 +179,5 @@ class BlockSpec extends WordSpec with Matchers{
           block.cells(2)(1).isblocked should be(1)
         }
       }
-
       }
 }

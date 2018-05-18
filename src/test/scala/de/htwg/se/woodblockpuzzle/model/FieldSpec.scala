@@ -6,8 +6,8 @@ import org.scalatest._
 
 class FieldSpec extends WordSpec with Matchers {
   "A new Field" when {
-    "new" should {
     val field = Field(8)
+    "new" should {
     "each cell isblocked should be 0" in {
       for (y <- 0 until field.fieldsize;
            x <- 0 until field.fieldsize) {
