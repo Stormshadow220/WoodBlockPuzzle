@@ -14,7 +14,7 @@ class BlockSpec extends WordSpec with Matchers{
       "new and Blocktype = 1" should{
         var block = Block(1)
         "blockmax should be and the body of block should" in{
-          block.blockmax should be(1)
+          block.blockmax should be(2)
           block.cells(0)(0).isblocked should be(1)
           block.cells(1)(0).isblocked should be(1)
         }
@@ -132,11 +132,12 @@ class BlockSpec extends WordSpec with Matchers{
       "new and Blocktype = 13" should{
         var block = Block(13)
         "blockmax should be and the body of block should" in{
-          block.blockmax should be(5)
+          block.blockmax should be(4)
           block.cells(0)(0).isblocked should be(1)
           block.cells(1)(0).isblocked should be(1)
           block.cells(2)(0).isblocked should be(1)
           block.cells(3)(0).isblocked should be(1)
+          block.cells(4)(0).isblocked should be(1)
         }
       }
       "new and Blocktype = 14" should{
