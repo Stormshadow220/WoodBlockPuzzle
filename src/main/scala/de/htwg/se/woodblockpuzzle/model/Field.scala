@@ -1,6 +1,6 @@
 package de.htwg.se.woodblockpuzzle.model
 
-case class Field(fs: Integer) {
+case class Field(fs: Int) {
   val fieldsize = fs
   val cells: Array[Array[Cell]] = Array.ofDim[Cell](fieldsize, fieldsize)
   for(y <- 0 until fieldsize) {
@@ -8,10 +8,14 @@ case class Field(fs: Integer) {
       cells(x)(y) = Cell(0)
     }
   }
-  def + (that:Block,atx:Integer,aty:Integer):Field={
-    for (y <- aty until that.blockmax;
-         x <- atx until that.blockmax) {
+  def + (that:Block,atx:Int,aty:Int):Field={
+    val backup : this
+    for (y <- aty until that.blockmaxy;
+         x <- atx until that.blockmaxx) {
       this.cells(x)(y)=this.cells(x)(y) + that.cells(x)(y)
+    }
+    if(!fit()){
+      return backup
     }
     this
   }
@@ -25,5 +29,15 @@ case class Field(fs: Integer) {
       str += ("\n")
     }
     str
+  }
+
+  def fit():Boolean={
+    for (y <- 0 until fieldsize;
+         x <- 0 until fieldsize){
+      if(this.cells(x)(y).isblocked == 2){
+        return false
+      }
+    }
+    return true
   }
 }
