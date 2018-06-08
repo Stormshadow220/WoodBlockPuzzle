@@ -44,7 +44,7 @@ class BlockSpec extends WordSpec with Matchers{
         var block = Block(4)
         "blockmax should be and the body of block should" in{
           block.blockmaxx should be(1)
-          block.blockmaxy should be(3))
+          block.blockmaxy should be(3)
           block.cells(0)(0).isblocked should be(1)
           block.cells(0)(1).isblocked should be(1)
           block.cells(0)(2).isblocked should be(1)

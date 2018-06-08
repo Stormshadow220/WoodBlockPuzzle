@@ -9,10 +9,18 @@ case class Field(fs: Int) {
     }
   }
   def + (that:Block,atx:Int,aty:Int):Field={
-    val backup : this
-    for (y <- aty until that.blockmaxy;
-         x <- atx until that.blockmaxx) {
-      this.cells(x)(y)=this.cells(x)(y) + that.cells(x)(y)
+    val backup : Field = this
+    if (aty > fieldsize ||atx > fieldsize){
+      return backup
+    }
+    for (y <- 0 until that.blockmaxy;
+         x <- 0 until that.blockmaxx) {
+      if(x<=fieldsize && y<=fieldsize){
+        this.cells(atx+x)(aty+y)=this.cells(atx+x)(aty+y) + that.cells(x)(y)
+      }else{
+        return backup
+      }
+
     }
     if(!fit()){
       return backup

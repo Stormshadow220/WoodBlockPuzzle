@@ -1,13 +1,15 @@
 package de.htwg.se.woodblockpuzzle.model
 
 case class Block(var blocktype: Int){
-  var blockmaxx, blockmaxy = 0
-  val cells : Array[Array[Cell]]
+  var blockmaxx = 0
+  var blockmaxy = 0
+  var cells : Array[Array[Cell]] = Array.ofDim[Cell](blockmaxx, blockmaxy)
 
   if(blocktype == 0) {
     blockmaxx = 1
     blockmaxy = 1
     fill
+    cells(0)(0).isblocked = 1
   }else if(blocktype == 1){
     blockmaxx = 2
     blockmaxy = 1
@@ -148,7 +150,7 @@ case class Block(var blocktype: Int){
     cells(2)(1).isblocked = 1
   }
   def fill: Unit ={
-    val cells: Array[Array[Cell]] = Array.ofDim[Cell](blockmaxx, blockmaxy)
+    cells = Array.ofDim[Cell](blockmaxx, blockmaxy)
     for(y <- 0 until blockmaxy) {
       for (x <- 0 until blockmaxx) {
         cells(x)(y) = Cell(0)
@@ -156,4 +158,14 @@ case class Block(var blocktype: Int){
     }
   }
 
+  override def toString: String = {
+    var str = ""
+    for (y <- 0 until blockmaxy){
+      for (x <- 0 until blockmaxx) {
+        str += this.cells(x)(y).isblocked + " "
+      }
+      str += ("\n")
+    }
+    str
+  }
 }

@@ -6,7 +6,7 @@ import org.scalatest._
 
 class FieldSpec extends WordSpec with Matchers {
   "A new Field" when {
-    val field = Field(8)
+    var field = Field(8)
     "new" should {
     "each cell isblocked should be 0" in {
       for (y <- 0 until field.fieldsize;
@@ -16,14 +16,14 @@ class FieldSpec extends WordSpec with Matchers {
     }
   }
       "add a Block, by adding each Cell of Field with each Cell of Block"
-      "add a type 0 Block to a empty field" in{
-        val block = Block(0)
-        field +(block, 0, 0) should be(field)
-      }
       "add a not empty block to a empty field" in{
         val block = Block(0)
-        block.cells(0)(0).isblocked = 1
-        field + block shouldNot be(field)
+        field +(block, 0,0) shouldNot be(this)
       }
-    }
+     /*"add a not empty block to a field at a position, thats out of fieldsize " in{
+        val block = Block(5)
+        val backup = field
+        field +(block, 8,8) should be(backup)
+      }*/
+  }
 }
