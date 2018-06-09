@@ -9,7 +9,12 @@ case class Field(fs: Int) {
     }
   }
   def + (that:Block,atx:Int,aty:Int):Field={
-    val backup : Field = this
+    var backup = Field(8)
+    for (y <- 0 until fieldsize){
+      for (x <- 0 until fieldsize) {
+        backup.cells(x)(y) = this.cells(x)(y)
+      }
+    }
     if (aty > fieldsize ||atx > fieldsize){
       return backup
     }
@@ -20,9 +25,8 @@ case class Field(fs: Int) {
       }else{
         return backup
       }
-
     }
-    if(!fit()){
+    if(!fit(this)){
       return backup
     }
     this
@@ -39,10 +43,11 @@ case class Field(fs: Int) {
     str
   }
 
-  def fit():Boolean={
+  def fit(f:Field):Boolean={
     for (y <- 0 until fieldsize;
          x <- 0 until fieldsize){
-      if(this.cells(x)(y).isblocked == 2){
+      if(f.cells(x)(y).isblocked > 1){
+        print("passt nicht")
         return false
       }
     }
