@@ -1,14 +1,14 @@
 package de.htwg.se.woodblockpuzzle.controller
 import de.htwg.se.woodblockpuzzle.model.{Block, Field}
-case class Controller(x:Int){
-  var field: Field = field(0)
+case class Controller(unit:Unit){
+  var field: Field = Field(0)
   var b1: Block = Block(0)
   var b2: Block = Block(0)
   var b3: Block = Block(0)
   var availableBlocks = 0
 
   def createField: Field = {
-    field = Field(x)
+    field = Field(8)
   }
 
 
@@ -39,7 +39,7 @@ case class Controller(x:Int){
   }
 
   def showBlock(blocknumber: Int): String ={
-    var s = ""
+    var s : String
     s = blocknumber match{
       case 1=> b1.toString
       case 2=> b2.toString
