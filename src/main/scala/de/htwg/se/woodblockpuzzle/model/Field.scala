@@ -15,7 +15,7 @@ case class Field(fs: Int) {
         backup.cells(x)(y) = this.cells(x)(y)
       }
     }
-    if (aty > fieldsize ||atx > fieldsize){
+    if (aty+that.blockmaxy > fieldsize ||atx+that.blockmaxx > fieldsize){
       return backup
     }
     for (y <- 0 until that.blockmaxy;
@@ -42,7 +42,6 @@ case class Field(fs: Int) {
     }
     str
   }
-
   def fit(f:Field):Boolean={
     for (y <- 0 until fieldsize;
          x <- 0 until fieldsize){
@@ -52,5 +51,30 @@ case class Field(fs: Int) {
       }
     }
     return true
+  }
+  def eightInARow(f:Field):Field = {
+    for(pos <- 0 until fieldsize){
+      if(f.cells(0)(pos).isblocked == 1 && f.cells(1)(pos).isblocked == 1 && f.cells(2)(pos).isblocked == 1 &&f.cells(3)(pos).isblocked == 1 && f.cells(4)(pos).isblocked == 1 && f.cells(5)(pos).isblocked == 1 && f.cells(6)(pos).isblocked == 1 && f.cells(7)(pos).isblocked == 1){
+        f.cells(0)(pos).isblocked == 0
+        f.cells(1)(pos).isblocked == 0
+        f.cells(2)(pos).isblocked == 0
+        f.cells(3)(pos).isblocked == 0
+        f.cells(4)(pos).isblocked == 0
+        f.cells(5)(pos).isblocked == 0
+        f.cells(6)(pos).isblocked == 0
+        f.cells(7)(pos).isblocked == 0
+      }
+      if(f.cells(pos)(0).isblocked == 1 && f.cells(pos)(1).isblocked == 1 && f.cells(pos)(2).isblocked == 1 &&f.cells(pos)(3).isblocked == 1 && f.cells(pos)(4).isblocked == 1 && f.cells(pos)(5).isblocked == 1 && f.cells(pos)(6).isblocked == 1 && f.cells(pos)(7).isblocked == 1){
+        f.cells(pos)(0).isblocked == 0
+        f.cells(pos)(1).isblocked == 0
+        f.cells(pos)(2).isblocked == 0
+        f.cells(pos)(3).isblocked == 0
+        f.cells(pos)(4).isblocked == 0
+        f.cells(pos)(5).isblocked == 0
+        f.cells(pos)(6).isblocked == 0
+        f.cells(pos)(7).isblocked == 0
+      }
+    }
+    return f
   }
 }
