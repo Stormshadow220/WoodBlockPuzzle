@@ -6,6 +6,7 @@ case class Controller(unit:Unit){
   var b2: Block = Block(0)
   var b3: Block = Block(0)
   var availableBlocks = 0
+  var count = 0
 
   def createField: Field = {
     field = Field(8)
@@ -39,19 +40,23 @@ case class Controller(unit:Unit){
   }
 
   def showBlock(blocknumber: Int): String ={
-    var s : String
-    s = blocknumber match{
-      case 1=> b1.toString
-      case 2=> b2.toString
-      case 3=> b3.toString
+    var s : String = "Block doesn't exist"
+    if(blocknumber==1) {
+      return b1.toString
     }
-
+    if(blocknumber==2) {
+      return b2.toString
+    }
+    if(blocknumber==3) {
+      return b3.toString
+    }
+    return s
   }
   def showField(): String ={
     return this.field.toString
   }
 
   def deleteFullRows()={
-    field = field.eightInARow(field)
+    field = field.eightInARow()
   }
 }

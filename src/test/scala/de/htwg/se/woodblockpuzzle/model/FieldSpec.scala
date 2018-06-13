@@ -38,9 +38,32 @@ class FieldSpec extends WordSpec with Matchers {
       "inside the field and the block wont create a index-out-of-Bounds-Error. Fitting in the field means," +
       " that the block wont overlap with a block, added before. " in{
       var field = Field(8)
-      val block = Block(7)
+      val block = Block(8)
       field = field +(block,0,0)
       field +(block,1,1) should be(field)
+    }
+    "The method fit gets a field and checks the cells of their number. fit returns false, if any cell.isblocked equals 2 or higher." in{
+      var field = Field(8)
+      field.cells(2)(2).isblocked = 2
+      field.fit(field) should be(false)
+    }
+
+    "The method eightInARow checks the whole field for full rows and deletes them. in this way we can delete rows, similar to tetris"in{
+      var field = Field(8)
+      field.cells(0)(0).isblocked = 1
+      field.cells(1)(0).isblocked = 1
+      field.cells(2)(0).isblocked = 1
+      field.cells(3)(0).isblocked = 1
+      field.cells(4)(0).isblocked = 1
+      field.cells(5)(0).isblocked = 1
+      field.cells(6)(0).isblocked = 1
+      field.cells(7)(0).isblocked = 1
+      field.eightInARow()
+    }
+    "toString returns a string that represents the field"
+    "toString of an empty field should return a string filled with 0"in{
+      var field = Field(8)
+      field.toString should be("")
     }
   }
 }

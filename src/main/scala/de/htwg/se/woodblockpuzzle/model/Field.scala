@@ -3,6 +3,7 @@ package de.htwg.se.woodblockpuzzle.model
 case class Field(fs: Int) {
   val fieldsize = fs
   val cells: Array[Array[Cell]] = Array.ofDim[Cell](fieldsize, fieldsize)
+  var count = 0
   for(y <- 0 until fieldsize) {
     for(x <- 0 until fieldsize) {
       cells(x)(y) = Cell(0)
@@ -46,35 +47,42 @@ case class Field(fs: Int) {
     for (y <- 0 until fieldsize;
          x <- 0 until fieldsize){
       if(f.cells(x)(y).isblocked > 1){
-        print("passt nicht")
         return false
       }
     }
     return true
   }
-  def eightInARow(f:Field):Field = {
-    for(pos <- 0 until fieldsize){
-      if(f.cells(0)(pos).isblocked == 1 && f.cells(1)(pos).isblocked == 1 && f.cells(2)(pos).isblocked == 1 &&f.cells(3)(pos).isblocked == 1 && f.cells(4)(pos).isblocked == 1 && f.cells(5)(pos).isblocked == 1 && f.cells(6)(pos).isblocked == 1 && f.cells(7)(pos).isblocked == 1){
-        f.cells(0)(pos).isblocked == 0
-        f.cells(1)(pos).isblocked == 0
-        f.cells(2)(pos).isblocked == 0
-        f.cells(3)(pos).isblocked == 0
-        f.cells(4)(pos).isblocked == 0
-        f.cells(5)(pos).isblocked == 0
-        f.cells(6)(pos).isblocked == 0
-        f.cells(7)(pos).isblocked == 0
-      }
-      if(f.cells(pos)(0).isblocked == 1 && f.cells(pos)(1).isblocked == 1 && f.cells(pos)(2).isblocked == 1 &&f.cells(pos)(3).isblocked == 1 && f.cells(pos)(4).isblocked == 1 && f.cells(pos)(5).isblocked == 1 && f.cells(pos)(6).isblocked == 1 && f.cells(pos)(7).isblocked == 1){
-        f.cells(pos)(0).isblocked == 0
-        f.cells(pos)(1).isblocked == 0
-        f.cells(pos)(2).isblocked == 0
-        f.cells(pos)(3).isblocked == 0
-        f.cells(pos)(4).isblocked == 0
-        f.cells(pos)(5).isblocked == 0
-        f.cells(pos)(6).isblocked == 0
-        f.cells(pos)(7).isblocked == 0
+  def eightInARow():Field = {
+    var out = Field(8)
+    for (y <- 0 until fieldsize){
+      for (x <- 0 until fieldsize) {
+        out.cells(x)(y) = this.cells(x)(y)
       }
     }
-    return f
+    for(pos <- 0 until fieldsize){
+      if(this.cells(0)(pos).isblocked == 1 && this.cells(1)(pos).isblocked == 1 && this.cells(2)(pos).isblocked == 1 && this.cells(3)(pos).isblocked == 1 && this.cells(4)(pos).isblocked == 1 && this.cells(5)(pos).isblocked == 1 && this.cells(6)(pos).isblocked == 1 && this.cells(7)(pos).isblocked == 1){
+        out.cells(0)(pos).isblocked == 0
+        out.cells(1)(pos).isblocked == 0
+        out.cells(2)(pos).isblocked == 0
+        out.cells(3)(pos).isblocked == 0
+        out.cells(4)(pos).isblocked == 0
+        out.cells(5)(pos).isblocked == 0
+        out.cells(6)(pos).isblocked == 0
+        out.cells(7)(pos).isblocked == 0
+        count+=1
+      }
+      if(this.cells(pos)(0).isblocked == 1 && this.cells(pos)(1).isblocked == 1 && this.cells(pos)(2).isblocked == 1 && this.cells(pos)(3).isblocked == 1 && this.cells(pos)(4).isblocked == 1 && this.cells(pos)(5).isblocked == 1 && this.cells(pos)(6).isblocked == 1 && this.cells(pos)(7).isblocked == 1){
+        out.cells(pos)(0).isblocked == 0
+        out.cells(pos)(1).isblocked == 0
+        out.cells(pos)(2).isblocked == 0
+        out.cells(pos)(3).isblocked == 0
+        out.cells(pos)(4).isblocked == 0
+        out.cells(pos)(5).isblocked == 0
+        out.cells(pos)(6).isblocked == 0
+        out.cells(pos)(7).isblocked == 0
+        count+=1
+      }
+    }
+    return out
   }
 }
