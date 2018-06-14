@@ -59,4 +59,7 @@ case class Controller(unit:Unit){
   def deleteFullRows()={
     field = field.eightInARow()
   }
+  def returnCount:Int={
+    return this.field.count
+  }
 }
