@@ -17,8 +17,8 @@ class CellSpec extends WordSpec with Matchers {
       val cell1 = Cell(0)
       val cell2 = Cell(1)
       "isblocked should be 1" in {
-        cell1+cell2
-        cell1.isblocked should be(1)
+        val result = cell1+cell2
+        result.isblocked should be(1)
       }
     }
   }
@@ -27,8 +27,8 @@ class CellSpec extends WordSpec with Matchers {
       val cell1 = Cell(1)
       val cell2 = Cell(0)
       "isblocked should be 1" in {
-        cell1+cell2
-        cell1.isblocked should be(1)
+        val result = cell1+cell2
+        result.isblocked should be(1)
       }
     }
   }
@@ -37,8 +37,8 @@ class CellSpec extends WordSpec with Matchers {
       val cell1 = Cell(0)
       val cell2 = Cell(0)
       "isblocked should be 0" in {
-        cell1+cell2
-        cell1.isblocked should be(0)
+        val result = cell1+cell2
+        result.isblocked should be(0)
       }
     }
   }
@@ -47,8 +47,8 @@ class CellSpec extends WordSpec with Matchers {
       val cell1 = Cell(1)
       val cell2 = Cell(1)
       "isblocked should be 2" in {
-        cell1 + cell2
-        cell1.isblocked should be(2)
+        val result = cell1+cell2
+        result.isblocked should be(2)
       }
     }
   }

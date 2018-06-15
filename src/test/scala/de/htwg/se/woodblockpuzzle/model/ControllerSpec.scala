@@ -17,6 +17,7 @@ class ControllerSpec extends WordSpec with Matchers{
       "create 3 new blocks with random blocktype between 0 and 17" in {
         "after using create3RandomBlocks"
         controller1.create3RandomBlocks
+        controller1.availableBlocks should be(3)
       }
       "create one block with blocktype x. the funktion can be called three times from create3RandomBlocks or manual," +
         " to create only one block" in {
@@ -36,6 +37,13 @@ class ControllerSpec extends WordSpec with Matchers{
         controller1.b3.toString should be(controller1.showBlock(3))
         controller1.showBlock(4) should be("Block doesn't exist")
         controller1.showBlock(-20) should be("Block doesn't exist")
+      }
+      "return the status of a cell at the coordinates atx,aty. returns 0 for free, 1 for blocked and -1 if the coordinates aren't inside the field"in{
+        controller1.createField
+        controller1.field.cells(1)(1).isblocked = 1
+        controller1.getCellStatusAt(0,0) should be(0)
+        controller1.getCellStatusAt(1,1) should be(1)
+        controller1.getCellStatusAt(20,20) should be(-1)
       }
     }
   }

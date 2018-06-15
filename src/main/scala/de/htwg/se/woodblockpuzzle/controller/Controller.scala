@@ -51,4 +51,11 @@ class Controller(){
 
   def returnCount:Int = this.field.count
 
+  def getCellStatusAt(atx:Int, aty:Int): Int = {
+    if(atx < this.field.fieldsize && aty < this.field.fieldsize){
+      this.field.cells(atx)(aty).isblocked
+    }else{
+      -1
+    }
+  }
 }
