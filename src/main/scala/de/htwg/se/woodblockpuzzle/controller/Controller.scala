@@ -1,15 +1,14 @@
 package de.htwg.se.woodblockpuzzle.controller
 import de.htwg.se.woodblockpuzzle.model.{Block, Field}
-case class Controller(unit:Unit){
+class Controller(){
   var field: Field = Field(0)
   var b1: Block = Block(0)
   var b2: Block = Block(0)
   var b3: Block = Block(0)
   var availableBlocks = 0
-  var count = 0
 
-  def createField: Field = {
-    field = Field(8)
+  def createField = {
+    this.field = Field(8)
   }
 
 
@@ -28,38 +27,28 @@ case class Controller(unit:Unit){
 
 
   def addingBlock(blocknumber: Int, atx: Int, aty: Int): Unit = {
-    if(blocknumber ==1){
-      this.field = field +(b1,atx,aty)
-    }
-    if(blocknumber ==2){
-      this.field = field +(b2,atx,aty)
-    }
-    if(blocknumber ==3){
-      this.field = field +(b3,atx,aty)
+    blocknumber match {
+      case 1 => field = field + (b1, atx, aty)
+        availableBlocks-=1
+      case 2 => field = field + (b2, atx, aty)
+        availableBlocks-=1
+      case 3 => field = field + (b3, atx, aty)
+        availableBlocks-=1
     }
   }
 
-  def showBlock(blocknumber: Int): String ={
-    var s : String = "Block doesn't exist"
-    if(blocknumber==1) {
-      return b1.toString
+  def showBlock(blocknumber: Int): String = {
+    blocknumber match {
+      case 1 => b1.toString
+      case 2 => b2.toString
+      case 3 => b3.toString
+      case _ => "Block doesn't exist"
     }
-    if(blocknumber==2) {
-      return b2.toString
-    }
-    if(blocknumber==3) {
-      return b3.toString
-    }
-    return s
   }
-  def showField(): String ={
-    return this.field.toString
-  }
+  def showField(): String = this.field.toString
 
-  def deleteFullRows()={
-    field = field.eightInARow()
-  }
-  def returnCount:Int={
-    return this.field.count
-  }
+  def deleteFullRows() = field = field.eightInARow()
+
+  def returnCount:Int = this.field.count
+
 }

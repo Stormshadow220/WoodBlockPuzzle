@@ -19,8 +19,15 @@ class FieldSpec extends WordSpec with Matchers {
       "add a Block, by adding each Cell of Field with each Cell of Block"
       "add a not empty block to a empty field" in {
         var field = Field(8)
-        val block = Block(0)
-        field + (block, 0, 0) shouldNot be(field)
+        val block = Block(3)
+        var backup = Field(8)
+        for (y <- 0 until field.fieldsize){
+          for (x <- 0 until field.fieldsize) {
+            backup.cells(x)(y) = field.cells(x)(y)
+          }
+        }
+        field = field + (block, 0, 0)
+        field.toString shouldNot be(backup.toString)
       }
       "add a type 7 block, which is one of our biggest blocks, to a not empty field" in {
         var field = Field(8)
@@ -42,8 +49,16 @@ class FieldSpec extends WordSpec with Matchers {
         " that the block wont overlap with a block, added before. " in {
         var field = Field(8)
         val block = Block(8)
+        var backup = Field(8)
+        for (y <- 0 until field.fieldsize){
+          for (x <- 0 until field.fieldsize) {
+            backup.cells(x)(y) = field.cells(x)(y)
+          }
+        }
         field = field +(block, 0, 0)
-        field +(block, 1, 1) should be(field)
+        field = field +(block, 1, 1)
+        field.toString should be(backup.toString)
+
       }
       "have the method fit, that gets a field as parameter and checks the cells of their number. fit returns false, if any cell.isblocked equals 2 or higher." in {
         var field = Field(8)
@@ -61,7 +76,7 @@ class FieldSpec extends WordSpec with Matchers {
         field.cells(5)(0).isblocked = 1
         field.cells(6)(0).isblocked = 1
         field.cells(7)(0).isblocked = 1
-        field.eightInARow()
+        field = field.eightInARow()
         field.count should be(1)
         field.cells(0)(0).isblocked should be(0)
         field.cells(1)(0).isblocked should be(0)
