@@ -38,12 +38,27 @@ class ControllerSpec extends WordSpec with Matchers{
         controller1.showBlock(4) should be("Block doesn't exist")
         controller1.showBlock(-20) should be("Block doesn't exist")
       }
-      "return the status of a cell at the coordinates atx,aty. returns 0 for free, 1 for blocked and -1 if the coordinates aren't inside the field"in{
+      "return the status of a cell at the coordinates atx,aty in a field. returns 0 for free, 1 for blocked and -1 if the coordinates aren't inside the field"in{
         controller1.createField
         controller1.field.cells(1)(1).isblocked = 1
-        controller1.getCellStatusAt(0,0) should be(0)
-        controller1.getCellStatusAt(1,1) should be(1)
-        controller1.getCellStatusAt(20,20) should be(-1)
+        controller1.getCellStatusAtField(0,0) should be(0)
+        controller1.getCellStatusAtField(1,1) should be(1)
+        controller1.getCellStatusAtField(20,20) should be(-1)
+      }
+      "return the status of a cell at the coordinates atx,aty in one of the 3 blocks. " +
+        "returns 0 for free, 1 for blocked and -1 if the coordinates aren't inside the block or the block doesn't exists"in{
+        controller1.create3RandomBlocks
+        controller1.b1.cells(0)(0).isblocked = 1
+        controller1.b2.cells(0)(0).isblocked = 1
+        controller1.b3.cells(0)(0).isblocked = 1
+        controller1.getCellStatusAtBlock(1,0,0) should be(1)
+        controller1.getCellStatusAtBlock(2,0,0) should be(1)
+        controller1.getCellStatusAtBlock(3,0,0) should be(1)
+
+        controller1.getCellStatusAtBlock(1,20,20) should be(-1)
+        controller1.getCellStatusAtBlock(2,20,20) should be(-1)
+        controller1.getCellStatusAtBlock(3,20,20) should be(-1)
+        controller1.getCellStatusAtBlock(5,0,0) should be(-1)
       }
     }
   }

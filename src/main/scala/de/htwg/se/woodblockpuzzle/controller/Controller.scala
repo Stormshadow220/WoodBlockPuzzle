@@ -51,11 +51,25 @@ class Controller(){
 
   def returnCount:Int = this.field.count
 
-  def getCellStatusAt(atx:Int, aty:Int): Int = {
+  def getCellStatusAtField(atx:Int, aty:Int): Int = {
     if(atx < this.field.fieldsize && aty < this.field.fieldsize){
       this.field.cells(atx)(aty).isblocked
     }else{
       -1
+    }
+  }
+  def getCellStatusAtBlock(blocknumber:Int,atx:Int, aty:Int): Int = {
+    blocknumber match {
+      case 1 => if(atx < this.b1.blockmaxx && aty < this.b1.blockmaxy){
+        this.b1.cells(atx)(aty).isblocked
+      }else{-1}
+      case 2 => if(atx < this.b2.blockmaxx && aty < this.b2.blockmaxy){
+        this.b2.cells(atx)(aty).isblocked
+      }else{-1}
+      case 3 => if(atx < this.b3.blockmaxx && aty < this.b3.blockmaxy){
+        this.b3.cells(atx)(aty).isblocked
+      }else{-1}
+      case _ => -1
     }
   }
 }
