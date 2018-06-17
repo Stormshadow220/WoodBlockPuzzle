@@ -149,6 +149,11 @@ case class Block(var blocktype: Int){
     cells(1)(1).isblocked = 1
     cells(2)(1).isblocked = 1
   }
+  else if(blocktype == -1){
+    blockmaxx = 0
+    blockmaxy = 0
+    fill
+  }
   def fill: Unit ={
     cells = Array.ofDim[Cell](blockmaxx, blockmaxy)
     for(y <- 0 until blockmaxy) {

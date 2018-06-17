@@ -6,6 +6,14 @@ class BlockSpec extends WordSpec with Matchers{
     "A Block" when{
       "new gets filled with cells in dependency of its blocktype and each cell gets initiated with 0." +
         "funktion fill gets called automaticly, when ever a new block was created"
+      "new and Blocktype = -1" should{
+        var block = Block(-1)
+        "this is an empty block, only used for holding a place, without getting called or added to anything" in{
+          block.blockmaxx should be(0)
+          block.blockmaxy should be(0)
+          block.blocktype should be(-1)
+        }
+      }
       "new and Blocktype = 0" should{
         var block = Block(0)
         "blockmax should be and the body of block should" in{

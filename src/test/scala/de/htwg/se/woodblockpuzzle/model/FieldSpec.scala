@@ -49,6 +49,7 @@ class FieldSpec extends WordSpec with Matchers {
         " that the block wont overlap with a block, added before. " in {
         var field = Field(8)
         val block = Block(8)
+        field = field +(block, 0, 0)
         var backup = Field(8)
         for (y <- 0 until field.fieldsize){
           for (x <- 0 until field.fieldsize) {
@@ -56,7 +57,6 @@ class FieldSpec extends WordSpec with Matchers {
           }
         }
         field = field +(block, 0, 0)
-        field = field +(block, 1, 1)
         field.toString should be(backup.toString)
 
       }

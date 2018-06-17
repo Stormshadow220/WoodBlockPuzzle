@@ -10,10 +10,20 @@ class ControllerSpec extends WordSpec with Matchers{
       "create nothing, before using the right funktion" in{
         controller1.field.fieldsize should be(0)
         controller1.availableBlocks should be(0)
-        controller1.b1.blocktype should be(0)
+        controller1.b1.blocktype should be(-1)
+        controller1.b2.blocktype should be(-1)
+        controller1.b3.blocktype should be(-1)
       }
     }
     "in use" should{
+      "create a new and empty field with fieldsize = 8"in{
+        controller1.createField
+        controller1.field.fieldsize should be(8)
+        for(y <- 0 until controller1.field.fieldsize;
+            x <- 0 until controller1.field.fieldsize){
+          controller1.field.cells(x)(y).isblocked should be(0)
+        }
+      }
       "create 3 new blocks with random blocktype between 0 and 17" in {
         "after using create3RandomBlocks"
         controller1.create3RandomBlocks
