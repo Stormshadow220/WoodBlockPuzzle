@@ -43,6 +43,17 @@ case class Field(fs: Int) {
     }
     str
   }
+  def toStringWithCoordinates: String = {
+    var str = " |1_2_3_4_5_6_7_8\n"
+    for (y <- 0 until fieldsize){
+      str += (y+1)+"|"
+      for (x <- 0 until fieldsize) {
+        str += this.cells(x)(y).isblocked+" "
+      }
+      str += ("\n")
+    }
+    str
+  }
   def fit(f:Field):Boolean={
     for (y <- 0 until fieldsize;
          x <- 0 until fieldsize){

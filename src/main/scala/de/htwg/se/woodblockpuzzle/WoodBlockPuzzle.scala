@@ -4,7 +4,7 @@ import model.Block
 object WoodBlockPuzzle {
   def main(args: Array[String]): Unit = {
     var f = Field(8)
-    print(f)
+    print(f.toStringWithCoordinates)
 
     var b = Block(7)
     print("\n")

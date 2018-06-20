@@ -7,14 +7,20 @@ class Controller(){
   var b3: Block = Block(-1)
   var availableBlocks = 0
 
-  def createField = {
-    this.field = Field(8)
+  def reset = {
+    createField
+    var b1: Block = Block(-1)
+    var b2: Block = Block(-1)
+    var b3: Block = Block(-1)
+    var availableBlocks = 0
   }
+
+  def createField = this.field = Field(8)
 
 
   def createBlock(x: Int): Block = {
     var b = Block(x)
-    return b
+    b
   }
 
   def create3RandomBlocks = {
@@ -49,6 +55,8 @@ class Controller(){
     }
   }
   def showField(): String = this.field.toString
+
+  def showFieldWithCoordinates(): String = this.field.toStringWithCoordinates
 
   def deleteFullRows() = field = field.eightInARow()
 

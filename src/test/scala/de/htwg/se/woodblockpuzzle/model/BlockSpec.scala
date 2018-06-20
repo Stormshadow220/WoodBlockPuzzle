@@ -12,6 +12,7 @@ class BlockSpec extends WordSpec with Matchers{
           block.blockmaxx should be(0)
           block.blockmaxy should be(0)
           block.blocktype should be(-1)
+          block.toString should be("")
         }
       }
       "new and Blocktype = 0" should{

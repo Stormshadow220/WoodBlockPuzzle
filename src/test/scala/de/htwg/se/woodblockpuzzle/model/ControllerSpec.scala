@@ -24,6 +24,13 @@ class ControllerSpec extends WordSpec with Matchers{
           controller1.field.cells(x)(y).isblocked should be(0)
         }
       }
+      "reset the game to its default and set all blocks empty"in{
+        controller1.reset
+        controller1.availableBlocks should be(0)
+        controller1.b1.blocktype should be(-1)
+        controller1.b2.blocktype should be(-1)
+        controller1.b3.blocktype should be(-1)
+      }
       "create 3 new blocks with random blocktype between 0 and 17" in {
         "after using create3RandomBlocks"
         controller1.create3RandomBlocks
@@ -48,7 +55,8 @@ class ControllerSpec extends WordSpec with Matchers{
         controller1.showBlock(4) should be("Block doesn't exist")
         controller1.showBlock(-20) should be("Block doesn't exist")
       }
-      "return the status of a cell at the coordinates atx,aty in a field. returns 0 for free, 1 for blocked and -1 if the coordinates aren't inside the field"in{
+      "return the status of a cell at the coordinates atx,aty in a field. returns 0 for free," +
+        " 1 for blocked and -1 if the coordinates aren't inside the field"in{
         controller1.createField
         controller1.field.cells(1)(1).isblocked = 1
         controller1.getCellStatusAtField(0,0) should be(0)
