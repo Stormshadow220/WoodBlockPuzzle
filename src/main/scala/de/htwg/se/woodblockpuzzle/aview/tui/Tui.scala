@@ -10,9 +10,10 @@ class Tui(var controller : Controller){
 
   def printTui = {
     println("Count: "+controller.returnCount)
+    println("Count: "+controller.returnCount)
     println(controller.showFieldWithCoordinates())
-    print(controller.showBlock(1)+"\n"+controller.showBlock(2)+"\n"+controller.showBlock(2))
-    println("Enter commands: r-reset & new game. sbxy - set block b to x y. g-give up.")
+    print("b1\n"+controller.showBlock(1)+"\nb2\n"+controller.showBlock(2)+"\nb3\n"+controller.showBlock(2))
+    println("Enter commands: r-reset & new game. sbxy - set block b to x y. g-give up, ceep points.")
   }
 
 

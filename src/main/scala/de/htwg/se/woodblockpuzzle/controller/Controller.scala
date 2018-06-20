@@ -6,17 +6,27 @@ class Controller(){
   var b2: Block = Block(-1)
   var b3: Block = Block(-1)
   var availableBlocks = 0
+  var highscore = 0
 
-  def reset = {
+  def reset: Unit = {
     createField
-    var b1: Block = Block(-1)
-    var b2: Block = Block(-1)
-    var b3: Block = Block(-1)
-    var availableBlocks = 0
+    this.b1 = Block(-1)
+    this.b2 = Block(-1)
+    this.b3 = Block(-1)
+    this.availableBlocks = 0
+    highscore = 0
   }
 
-  def createField = this.field = Field(8)
+  def giveup: Unit = {
+    if(this.field.count > highscore){highscore = returnCount}
+    createField
+    this.b1 = Block(-1)
+    this.b2 = Block(-1)
+    this.b3 = Block(-1)
+    this.availableBlocks = 0
+  }
 
+  def createField: Unit = this.field = Field(8)
 
   def createBlock(x: Int): Block = {
     var b = Block(x)
@@ -25,10 +35,10 @@ class Controller(){
 
   def create3RandomBlocks = {
     var r = scala.util.Random
-    b1 = createBlock(r.nextInt(17))
-    b2 = createBlock(r.nextInt(17))
-    b3 = createBlock(r.nextInt(17))
-    availableBlocks = 3
+    this.b1 = createBlock(r.nextInt(17))
+    this.b2 = createBlock(r.nextInt(17))
+    this.b3 = createBlock(r.nextInt(17))
+    this.availableBlocks = 3
   }
 
 
@@ -58,9 +68,11 @@ class Controller(){
 
   def showFieldWithCoordinates(): String = this.field.toStringWithCoordinates
 
-  def deleteFullRows() = field = field.eightInARow()
+  def deleteFullRows() = {field = field.eightInARow()}
 
   def returnCount:Int = this.field.count
+
+  def returnHigscore:Int = this.highscore
 
   def getCellStatusAtField(atx:Int, aty:Int): Int = {
     if(atx < this.field.fieldsize && aty < this.field.fieldsize){

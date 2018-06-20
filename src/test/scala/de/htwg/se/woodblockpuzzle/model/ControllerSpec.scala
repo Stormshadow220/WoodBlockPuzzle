@@ -31,6 +31,23 @@ class ControllerSpec extends WordSpec with Matchers{
         controller1.b2.blocktype should be(-1)
         controller1.b3.blocktype should be(-1)
       }
+      "reset the game but ceep highscore and set all blocks empty"in{
+        controller1.field.count = 15
+        controller1.giveup
+        controller1.availableBlocks should be(0)
+        controller1.b1.blocktype should be(-1)
+        controller1.b2.blocktype should be(-1)
+        controller1.b3.blocktype should be(-1)
+        controller1.highscore should be(15)
+        controller1.field.count = 10
+        controller1.giveup
+        controller1.availableBlocks should be(0)
+        controller1.b1.blocktype should be(-1)
+        controller1.b2.blocktype should be(-1)
+        controller1.b3.blocktype should be(-1)
+        controller1.highscore should be(15)
+
+      }
       "create 3 new blocks with random blocktype between 0 and 17" in {
         "after using create3RandomBlocks"
         controller1.create3RandomBlocks
@@ -77,6 +94,26 @@ class ControllerSpec extends WordSpec with Matchers{
         controller1.getCellStatusAtBlock(2,20,20) should be(-1)
         controller1.getCellStatusAtBlock(3,20,20) should be(-1)
         controller1.getCellStatusAtBlock(5,0,0) should be(-1)
+      }
+      "return the count of the field and set the highscore, if count is higher than the prefious hightscore"in{
+        controller1.reset
+        controller1.field.count = 5
+        controller1.field.count should be(5)
+        controller1.highscore should be(0)
+        controller1.giveup
+        controller1.highscore should be(5)
+        controller1.field.count = 23
+        controller1.giveup
+        controller1.highscore should be(23)
+        controller1.reset
+        controller1.highscore should be(0)
+      }
+      "add a block to the field at coordinates x,y"in{
+        controller1.reset
+        controller1.create3RandomBlocks
+        print(controller1.b1.toString)
+        controller1.addingBlock(1,0,0)
+        controller1.getCellStatusAtField(0,0) should be (controller1.b1.cells(0)(0).isblocked)
       }
     }
   }
