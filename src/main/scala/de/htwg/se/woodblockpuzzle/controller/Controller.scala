@@ -44,13 +44,13 @@ class Controller(){
 
   def addingBlock(blocknumber: Int, atx: Int, aty: Int): Unit = {
     blocknumber match {
-      case 1 => field = field + (b1, atx, aty)
+      case 1 => field = field + (b1, atx-1, aty-1)
         availableBlocks-=1
         b1 = Block(-1)
-      case 2 => field = field + (b2, atx, aty)
+      case 2 => field = field + (b2, atx-1, aty-1)
         availableBlocks-=1
         b2 = Block(-1)
-      case 3 => field = field + (b3, atx, aty)
+      case 3 => field = field + (b3, atx-1, aty-1)
         availableBlocks-=1
         b3 = Block(-1)
     }
@@ -68,11 +68,11 @@ class Controller(){
 
   def showFieldWithCoordinates(): String = this.field.toStringWithCoordinates
 
-  def deleteFullRows() = {field = field.eightInARow()}
+  def deleteFullRows() = this.field = this.field.eightInARow()
 
   def returnCount:Int = this.field.count
 
-  def returnHigscore:Int = this.highscore
+  def returnHighscore:Int = this.highscore
 
   def getCellStatusAtField(atx:Int, aty:Int): Int = {
     if(atx < this.field.fieldsize && aty < this.field.fieldsize){

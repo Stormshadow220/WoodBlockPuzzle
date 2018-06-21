@@ -100,20 +100,45 @@ class ControllerSpec extends WordSpec with Matchers{
         controller1.field.count = 5
         controller1.field.count should be(5)
         controller1.highscore should be(0)
+        controller1.returnHighscore should be(0)
         controller1.giveup
         controller1.highscore should be(5)
+        controller1.returnHighscore should be(5)
         controller1.field.count = 23
         controller1.giveup
         controller1.highscore should be(23)
+        controller1.returnHighscore should be(23)
         controller1.reset
         controller1.highscore should be(0)
+        controller1.returnHighscore should be(0)
       }
-      "add a block to the field at coordinates x,y"in{
+      "add a block to the field at coordinates x,y"in {
+        "be carefull, the coordinates for this funktion go from 1 to 8, not from 0 to 7, because the player will see coordinates from 1 to 8."
         controller1.reset
         controller1.create3RandomBlocks
-        print(controller1.b1.toString)
-        controller1.addingBlock(1,0,0)
-        controller1.getCellStatusAtField(0,0) should be (controller1.b1.cells(0)(0).isblocked)
+        val blockedat00 = controller1.b1.cells(0)(0).isblocked
+        controller1.addingBlock(1, 1, 1)
+        controller1.getCellStatusAtField(0, 0) should be(blockedat00)
+      }
+      "calls the eightInARow-funktion of its Field."in{
+        controller1.field.cells(0)(0).isblocked = 1
+        controller1.field.cells(1)(0).isblocked = 1
+        controller1.field.cells(2)(0).isblocked = 1
+        controller1.field.cells(3)(0).isblocked = 1
+        controller1.field.cells(4)(0).isblocked = 1
+        controller1.field.cells(5)(0).isblocked = 1
+        controller1.field.cells(6)(0).isblocked = 1
+        controller1.field.cells(7)(0).isblocked = 1
+        controller1.deleteFullRows
+        controller1.returnCount should be(1)
+        controller1.field.cells(0)(0).isblocked should be(0)
+        controller1.field.cells(1)(0).isblocked should be(0)
+        controller1.field.cells(2)(0).isblocked should be(0)
+        controller1.field.cells(3)(0).isblocked should be(0)
+        controller1.field.cells(4)(0).isblocked should be(0)
+        controller1.field.cells(5)(0).isblocked should be(0)
+        controller1.field.cells(6)(0).isblocked should be(0)
+        controller1.field.cells(7)(0).isblocked should be(0)
       }
     }
   }
