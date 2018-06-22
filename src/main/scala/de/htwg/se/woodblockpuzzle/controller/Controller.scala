@@ -74,6 +74,8 @@ class Controller(){
 
   def returnHighscore:Int = this.highscore
 
+  def setCellsAt(x:Int,y:Int,w:Int) = if(w < 2){this.field.cells(x)(y).isblocked = w}
+
   def getCellStatusAtField(atx:Int, aty:Int): Int = {
     if(atx < this.field.fieldsize && aty < this.field.fieldsize){
       this.field.cells(atx)(aty).isblocked
