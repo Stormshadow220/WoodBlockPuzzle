@@ -63,7 +63,7 @@ class FieldSpec extends WordSpec with Matchers {
       "have the method fit, that gets a field as parameter and checks the cells of their number. fit returns false, if any cell.isblocked equals 2 or higher." in {
         var field = Field(8)
         field.cells(2)(2).isblocked = 2
-        field.fit(field) should be(false)
+        field.fit should be(false)
       }
 
       "have the method eightInARow, that copies the field, checks it for full rows and deletes them, if they found them. in this way we can delete rows, similar to tetris" in {

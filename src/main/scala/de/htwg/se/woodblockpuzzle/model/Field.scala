@@ -27,7 +27,7 @@ case class Field(fs: Int) {
         return backup
       }
     }
-    if(!fit(this)){
+    if(!fit){
       return backup
     }
     this
@@ -54,10 +54,10 @@ case class Field(fs: Int) {
     }
     str
   }
-  def fit(f:Field):Boolean={
+  def fit():Boolean={
     for (y <- 0 until fieldsize;
          x <- 0 until fieldsize){
-      if(f.cells(x)(y).isblocked > 1){
+      if(this.cells(x)(y).isblocked > 1){
         return false
       }
     }

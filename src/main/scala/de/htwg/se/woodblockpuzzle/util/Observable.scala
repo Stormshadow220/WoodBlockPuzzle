@@ -1,9 +1,11 @@
 package de.htwg.se.woodblockpuzzle.util
 
-class Observer {
+trait Observer {
   def update
 }
 class Observable{
-  var subscriber: Vector[Observer] = Vector()
-  def add
+  var subscribers: Vector[Observer] = Vector()
+  def add(s: Observer) = subscribers = subscribers :+ s
+  def remove(s: Observer) = subscribers = subscribers.filterNot(o => o == s)
+  def notifyObservers = subscribers.foreach(o => o.update)
 }
