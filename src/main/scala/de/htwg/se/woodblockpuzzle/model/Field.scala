@@ -1,6 +1,7 @@
 package de.htwg.se.woodblockpuzzle.model
 
 case class Field(fs: Int) {
+  var returnedBackup = true
   val fieldsize = fs
   val cells: Array[Array[Cell]] = Array.ofDim[Cell](fieldsize, fieldsize)
   var count = 0
@@ -10,6 +11,7 @@ case class Field(fs: Int) {
     }
   }
   def + (that:Block,atx:Int,aty:Int):Field={
+    returnedBackup = false
     var backup = Field(8)
     for (y <- 0 until fieldsize){
       for (x <- 0 until fieldsize) {
@@ -28,10 +30,13 @@ case class Field(fs: Int) {
       }
     }
     if(!fit){
+      returnedBackup = true
       return backup
     }
     this
   }
+
+  def isReturnedBackup: Boolean = returnedBackup
 
   override def toString: String = {
     var str = ""

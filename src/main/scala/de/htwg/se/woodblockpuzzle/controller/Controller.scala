@@ -1,6 +1,12 @@
 package de.htwg.se.woodblockpuzzle.controller
 import de.htwg.se.woodblockpuzzle.model.{Block, Field}
-class Controller(){
+import scala.swing.event.Event
+import scala.swing.Publisher
+
+case class fieldChanged() extends Event
+
+class Controller() extends Publisher{
+  var statusText = "WoodBlockPuzzle"
   var field: Field = Field(0)
   var b1: Block = Block(-1)
   var b2: Block = Block(-1)
@@ -19,6 +25,7 @@ class Controller(){
 
   def giveup: Unit = {
     if(this.field.count > highscore){highscore = returnCount}
+    statusText = "Give up"
     createField
     this.b1 = Block(-1)
     this.b2 = Block(-1)
@@ -42,18 +49,26 @@ class Controller(){
   }
 
 
-  def addingBlock(blocknumber: Int, atx: Int, aty: Int): Unit = {
+  def addBlock(blocknumber: Int, atx: Int, aty: Int): Unit = {
     blocknumber match {
-      case 1 => field = field + (b1, atx-1, aty-1)
-        availableBlocks-=1
-        b1 = Block(-1)
+      case 1 => field = field + (b1, atx - 1, aty - 1)
+        if (!field.isReturnedBackup) {
+          availableBlocks -= 1
+          b1 = Block(-1)
+        }
       case 2 => field = field + (b2, atx-1, aty-1)
-        availableBlocks-=1
-        b2 = Block(-1)
+        if (!field.isReturnedBackup) {
+          availableBlocks-=1
+          b2 = Block(-1)
+        }
       case 3 => field = field + (b3, atx-1, aty-1)
-        availableBlocks-=1
-        b3 = Block(-1)
+        if (!field.isReturnedBackup) {
+          availableBlocks-=1
+          b3 = Block(-1)
+        }
     }
+    deleteFullRows
+    if(availableBlocks == 0) create3RandomBlocks
   }
 
   def showBlock(blocknumber: Int): String = {
@@ -66,6 +81,8 @@ class Controller(){
   }
   def showField(): String = this.field.toString
 
+  def getFieldMax(): Int = this.field.fieldsize
+
   def showFieldWithCoordinates(): String = this.field.toStringWithCoordinates
 
   def deleteFullRows() = this.field = this.field.eightInARow()
@@ -74,7 +91,7 @@ class Controller(){
 
   def returnHighscore:Int = this.highscore
 
-  def setCellsAt(x:Int,y:Int,w:Int) = if(w < 2){this.field.cells(x)(y).isblocked = w}
+  def setCellAt(x:Int,y:Int,v:Int) = if(v < 2){this.field.cells(x)(y).isblocked = v}
 
   def getCellStatusAtField(atx:Int, aty:Int): Int = {
     if(atx < this.field.fieldsize && aty < this.field.fieldsize){

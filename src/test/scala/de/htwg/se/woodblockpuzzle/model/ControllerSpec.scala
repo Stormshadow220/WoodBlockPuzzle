@@ -117,7 +117,7 @@ class ControllerSpec extends WordSpec with Matchers{
         controller1.reset
         controller1.create3RandomBlocks
         val blockedat00 = controller1.b1.cells(0)(0).isblocked
-        controller1.addingBlock(1, 1, 1)
+        controller1.addBlock(1, 1, 1)
         controller1.getCellStatusAtField(0, 0) should be(blockedat00)
       }
       "calls the eightInARow-funktion of its Field."in{
