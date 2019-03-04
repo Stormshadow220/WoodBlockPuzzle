@@ -1,5 +1,4 @@
 package de.htwg.se.woodblockpuzzle.aview.tui
-import de.htwg.se.woodblockpuzzle.controller
 import de.htwg.se.woodblockpuzzle.controller.Controller
 import org.scalatest._
 
@@ -13,12 +12,13 @@ class TuiSpec  extends WordSpec with Matchers{
         //  "b1\n"+controller.showBlock(1)+"\nb2\n"+controller.showBlock(2)+"\nb3\n"+controller.showBlock(2)+"\n"+"Enter command: q-Quit. n-Reset all & new game. sbxy - Set block b to x y. g-Give up & ceep points.\n")
       }
     }
-    "in use" should{
-      "quit the input if q was put in"in{
+    "in use" should {
+      "quit the input if q was put in" in {
         tui.processInputLine("q") should be(false)
+      }
+      "return true if the input was correct" in {
         tui.processInputLine("n") should be(true)
       }
-
     }
   }
 }

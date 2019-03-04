@@ -46,11 +46,13 @@ class FieldSpec extends WordSpec with Matchers {
 
       "checks if a block fits in the field, after checking, that the coordinates are " +
         "inside the field and the block wont create a index-out-of-Bounds-Error. Fitting in the field means," +
-        " that the block wont overlap with a block, added before. " in {
+        " that the block wont overlap with a block, added before. The count should be kept, if the backup was returned." in {
         var field = Field(8)
         val block = Block(8)
         field = field +(block, 0, 0)
+        field.count = 24
         var backup = Field(8)
+        backup.count = field.count
         for (y <- 0 until field.fieldsize){
           for (x <- 0 until field.fieldsize) {
             backup.cells(x)(y) = field.cells(x)(y)
@@ -58,7 +60,7 @@ class FieldSpec extends WordSpec with Matchers {
         }
         field = field +(block, 0, 0)
         field.toString should be(backup.toString)
-
+        field.count should be(backup.count)
       }
       "have the method fit, that gets a field as parameter and checks the cells of their number. fit returns false, if any cell.isblocked equals 2 or higher." in {
         var field = Field(8)
@@ -76,8 +78,8 @@ class FieldSpec extends WordSpec with Matchers {
         field.cells(5)(0).isblocked = 1
         field.cells(6)(0).isblocked = 1
         field.cells(7)(0).isblocked = 1
-        field = field.eightInARow()
-        field.count should be(1)
+        field.eightInARow()
+        field.count should be(8)
         field.cells(0)(0).isblocked should be(0)
         field.cells(1)(0).isblocked should be(0)
         field.cells(2)(0).isblocked should be(0)

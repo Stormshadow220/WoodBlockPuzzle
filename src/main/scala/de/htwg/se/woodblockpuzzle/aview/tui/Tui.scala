@@ -27,7 +27,7 @@ class Tui(var controller : Controller) extends Reactor{
       case 'n' => {
         controller.reset
         controller.create3RandomBlocks
-        println("All points have been marked down, lets start new!")
+        println("Lets start new!")
       }
       case 'g' => {
         controller.giveup

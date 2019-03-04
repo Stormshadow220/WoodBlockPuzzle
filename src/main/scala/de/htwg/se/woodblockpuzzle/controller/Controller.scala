@@ -85,7 +85,7 @@ class Controller() extends Publisher{
 
   def showFieldWithCoordinates(): String = this.field.toStringWithCoordinates
 
-  def deleteFullRows() = this.field = this.field.eightInARow()
+  def deleteFullRows() = this.field.eightInARow()
 
   def returnCount:Int = this.field.count
 
