@@ -34,6 +34,7 @@ class Tui(var controller : Controller) extends Reactor{
         controller.create3RandomBlocks
         println("keep your highscore and try again!")
       }
+      case 'r' => controller.reverse
       case _ => {
         input.toList.filter(c => c != ' ').map(c => c.toString.toInt) match {
           case number :: column :: row :: Nil => controller.addBlock(number, column, row)
