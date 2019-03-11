@@ -1,16 +1,14 @@
 package de.htwg.se.woodblockpuzzle.aview.tui
 
 import de.htwg.se.woodblockpuzzle.controller.Controller
-import de.htwg.se.woodblockpuzzle.controller.fieldChanged
-import de.htwg.se.woodblockpuzzle.util.{Observable, Observer}
-import scala.io.Source._
-import swing._
+import de.htwg.se.woodblockpuzzle.controller.FieldChanged
+import scala.swing._
 
 class Tui(var controller : Controller) extends Reactor{
   listenTo(controller)
   printTui
   reactions += {
-    case e: fieldChanged => printTui
+    case e: FieldChanged => printTui
   }
 
   def printTui = {
@@ -26,19 +24,19 @@ class Tui(var controller : Controller) extends Reactor{
       case 'q' => continue = false
       case 'n' => {
         controller.reset
-        controller.create3RandomBlocks
         println("Lets start new!")
       }
       case 'g' => {
         controller.giveup
-        controller.create3RandomBlocks
         println("keep your highscore and try again!")
       }
       case 'r' => controller.reverse
       case _ => {
-        input.toList.filter(c => c != ' ').map(c => c.toString.toInt) match {
-          case number :: column :: row :: Nil => controller.addBlock(number, column, row)
-          case _ => println("False Input")
+        try {
+          input.toList.filter(c => c != ' ').map(c => c.toString.toInt) match {
+            case number :: column :: row :: Nil => controller.addBlock(number, column, row)
+            case _ => println("False Input")
+          }
         }
       }
     }

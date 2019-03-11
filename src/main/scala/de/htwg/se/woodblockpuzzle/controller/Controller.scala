@@ -3,7 +3,7 @@ import de.htwg.se.woodblockpuzzle.model.{Block, Field}
 import scala.swing.event.Event
 import scala.swing.Publisher
 
-case class fieldChanged() extends Event
+case class FieldChanged() extends Event
 
 class Controller() extends Publisher{
   var statusText = "WoodBlockPuzzle"
@@ -11,16 +11,21 @@ class Controller() extends Publisher{
   var b1: Block = Block(-1)
   var b2: Block = Block(-1)
   var b3: Block = Block(-1)
+  var fieldsize = 8
   var availableBlocks = 0
   var highscore = 0
+  reset
 
   def reset: Unit = {
+    statusText = "reset"
     createField
     this.b1 = Block(-1)
     this.b2 = Block(-1)
     this.b3 = Block(-1)
     this.availableBlocks = 0
     highscore = 0
+    create3RandomBlocks
+    publish(new FieldChanged)
   }
 
   def giveup: Unit = {
@@ -31,9 +36,11 @@ class Controller() extends Publisher{
     this.b2 = Block(-1)
     this.b3 = Block(-1)
     this.availableBlocks = 0
+    create3RandomBlocks
+    publish(new FieldChanged)
   }
 
-  def createField: Unit = this.field = Field(8)
+  def createField: Unit = this.field = Field(fieldsize)
 
   def createBlock(x: Int): Block = {
     var b = Block(x)
@@ -50,6 +57,7 @@ class Controller() extends Publisher{
 
 
   def addBlock(blocknumber: Int, atx: Int, aty: Int): Unit = {
+    statusText = "adding block"
     blocknumber match {
       case 1 => field = field + (b1, atx - 1, aty - 1)
         if (!field.isReturnedBackup) {
@@ -69,6 +77,7 @@ class Controller() extends Publisher{
     }
     deleteFullRows
     if(availableBlocks == 0) create3RandomBlocks
+    publish(new FieldChanged)
   }
 
   def showBlock(blocknumber: Int): String = {
@@ -81,7 +90,7 @@ class Controller() extends Publisher{
   }
   def showField(): String = this.field.toString
 
-  def getFieldMax(): Int = this.field.fieldsize
+  def getFieldMax(): Int = this.fieldsize
 
   def showFieldWithCoordinates(): String = this.field.toStringWithCoordinates
 
