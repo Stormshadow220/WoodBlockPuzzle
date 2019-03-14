@@ -103,8 +103,8 @@ class Controller() extends Publisher{
   def setCellAt(x:Int,y:Int,v:Int) = if(v < 2){this.field.cells(x)(y).isblocked = v}
 
   def getCellStatusAtField(atx:Int, aty:Int): Int = {
-    if(atx < this.field.fieldsize && aty < this.field.fieldsize){
-      this.field.cells(atx)(aty).isblocked
+    if(atx <= this.fieldsize && aty <= this.fieldsize){
+      this.field.cells(atx-1)(aty-1).isblocked
     }else{
       -1
     }
