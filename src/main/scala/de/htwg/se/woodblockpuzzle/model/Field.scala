@@ -80,7 +80,7 @@ case class Field(fs: Int) {
         this.cells(5)(pos).isblocked = 0
         this.cells(6)(pos).isblocked = 0
         this.cells(7)(pos).isblocked = 0
-        this.count= this.count + 8
+        this.count= this.count + fieldsize
       }
       if(this.cells(pos)(0).isblocked == 1 && this.cells(pos)(1).isblocked == 1 && this.cells(pos)(2).isblocked == 1 && this.cells(pos)(3).isblocked == 1 && this.cells(pos)(4).isblocked == 1 && this.cells(pos)(5).isblocked == 1 && this.cells(pos)(6).isblocked == 1 && this.cells(pos)(7).isblocked == 1){
         this.cells(pos)(0).isblocked = 0
@@ -91,7 +91,7 @@ case class Field(fs: Int) {
         this.cells(pos)(5).isblocked = 0
         this.cells(pos)(6).isblocked = 0
         this.cells(pos)(7).isblocked = 0
-        this.count= this.count + 8
+        this.count= this.count + fieldsize
       }
     }
   }

@@ -20,6 +20,6 @@ class BlockPanel(blocknumber : Int, maxX: Int, maxY: Int, controller: Controller
     //contents += cell
     repaint
   }
-  def setBackground(p: Panel) = p.background = if(!cellBlocked) blockedCellColor else emptyCellColor
+  //def setBackground(p: Panel) = p.background = if(!cellBlocked) blockedCellColor else emptyCellColor
 
 }
