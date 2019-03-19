@@ -48,9 +48,11 @@ class SwingGui(var controller : Controller) extends Frame{
   }
 
 
-  val statusline = new TextField(controller.statusText, 20)
-
+  var statusline = new TextField("last event: "+controller.statusText, 20)
+  var countLine = new TextField("count: " + controller.returnCount.toString
+    +"\n highscore: " + controller.highscore, 20)
   contents = new BoxPanel(Orientation.Vertical) {
+    contents += countLine
     contents += fieldPanel
     contents += chosePanel
     contents += blockPanel
@@ -81,6 +83,8 @@ class SwingGui(var controller : Controller) extends Frame{
       x <- 0 until controller.fieldsize){
       cells(x)(y).redraw
     }
+    statusline.text = "last event: "+controller.statusText
+    countLine.text = "count: " + controller.returnCount.toString +"\n highscore: " + controller.returnHighscore.toString
     repaint
   }
 }

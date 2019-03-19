@@ -57,24 +57,30 @@ class Controller() extends Publisher{
 
 
   def addBlock(blocknumber: Int, atx: Int, aty: Int): Unit = {
-    statusText = "adding block"
     blocknumber match {
-      case 1 => field = field + (b1, atx - 1, aty - 1)
+      case 1 => {
+        field = field + (b1, atx - 1, aty - 1)
         if (!field.isReturnedBackup) {
           availableBlocks -= 1
           b1 = Block(-1)
         }
-      case 2 => field = field + (b2, atx-1, aty-1)
+      }
+      case 2 => {
+        field = field + (b2, atx-1, aty-1)
         if (!field.isReturnedBackup) {
           availableBlocks-=1
           b2 = Block(-1)
         }
-      case 3 => field = field + (b3, atx-1, aty-1)
+      }
+      case 3 => {
+        field = field + (b3, atx-1, aty-1)
         if (!field.isReturnedBackup) {
           availableBlocks-=1
           b3 = Block(-1)
         }
+      }
     }
+    setAddStatus(blocknumber, atx, aty, field.returnedBackup)
     deleteFullRows
     if(availableBlocks == 0) create3RandomBlocks
     publish(new FieldChanged)
@@ -88,6 +94,14 @@ class Controller() extends Publisher{
       case _ => "Block doesn't exist"
     }
   }
+  def setAddStatus(block: Int, x: Int, y: Int, failed: Boolean) :Unit = {
+    if(failed){
+      this.statusText = "add block " + block + " to " + x + " " + y + " failed"
+    }else{
+      this.statusText = "add block " + block + " to " + x + " " + y
+    }
+  }
+
   def showField(): String = this.field.toString
 
   def getFieldMax(): Int = this.fieldsize

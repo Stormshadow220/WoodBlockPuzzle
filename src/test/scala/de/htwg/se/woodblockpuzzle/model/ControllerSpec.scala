@@ -1,6 +1,7 @@
 package de.htwg.se.woodblockpuzzle.controller
 
 import org.scalatest._
+import de.htwg.se.woodblockpuzzle.model.{Block, Field}
 
 
 class ControllerSpec extends WordSpec with Matchers{
@@ -143,6 +144,16 @@ class ControllerSpec extends WordSpec with Matchers{
         controller1.field.cells(5)(0).isblocked should be(0)
         controller1.field.cells(6)(0).isblocked should be(0)
         controller1.field.cells(7)(0).isblocked should be(0)
+      }
+      "set a status for all relevant events, that happend recently"in {
+        "set the status if a block was added"
+        controller1.reset
+        controller1.b1 = new Block(0)
+        controller1.addBlock(1, 1, 1)
+        controller1.statusText should be("add block 1 to 1 1")
+        controller1.b1 = new Block(0)
+        controller1.addBlock(1, 1, 1)
+        controller1.statusText should be("add block 1 to 1 1 failed")
       }
     }
   }
