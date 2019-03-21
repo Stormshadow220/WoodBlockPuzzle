@@ -11,6 +11,7 @@ class Controller() extends Publisher{
   var b1: Block = Block(-1)
   var b2: Block = Block(-1)
   var b3: Block = Block(-1)
+  var chosenBlock = 1
   var fieldsize = 8
   var availableBlocks = 0
   var highscore = 0
@@ -83,8 +84,13 @@ class Controller() extends Publisher{
     setAddStatus(blocknumber, atx, aty, field.returnedBackup)
     deleteFullRows
     if(availableBlocks == 0) create3RandomBlocks
+
     publish(new FieldChanged)
   }
+
+  def setChosenBlock(chosen: Int) : Unit = chosenBlock = chosen
+
+  def getChosenBlock():Int = chosenBlock
 
   def showBlock(blocknumber: Int): String = {
     blocknumber match {

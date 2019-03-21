@@ -13,10 +13,9 @@ class SwingGui(var controller : Controller) extends Frame{
   title = "WoodBlockPuzzle"
   preferredSize = new Dimension(380, 530)
 
-  var cells = Array.ofDim[FieldButton](controller.fieldsize, controller.fieldsize)
-  var chosenBlock = 1
+  var cells = Array.ofDim[CellPanel](controller.fieldsize, controller.fieldsize)
 
-  def setChosenBlock(i: Int) = {chosenBlock = i}
+  def setChosenBlock(i: Int) = {}
 
   def fieldPanel = new GridPanel(controller.fieldsize, controller.fieldsize) {
     border = LineBorder(java.awt.Color.BLACK, 1)
@@ -24,7 +23,7 @@ class SwingGui(var controller : Controller) extends Frame{
     preferredSize = new Dimension(300,300)
     for (y <- 1 to controller.fieldsize;
          x <- 1 to controller.fieldsize) {
-      var b = new FieldButton(x, y, controller)
+      var b = new CellPanel(x, y, controller)
       contents += b
       cells(x-1)(y-1) = b
     }
@@ -32,9 +31,9 @@ class SwingGui(var controller : Controller) extends Frame{
 
   def chosePanel = new GridPanel(1, 3) {
     preferredSize = new Dimension(300,20)
-    contents += Button("Block 1") { setChosenBlock(1) }
-    contents += Button("Block 2") { setChosenBlock(2) }
-    contents += Button("Block 3") { setChosenBlock(3) }
+    contents += Button("Block 1") { controller.setChosenBlock(1) }
+    contents += Button("Block 2") { controller.setChosenBlock(2) }
+    contents += Button("Block 3") { controller.setChosenBlock(3) }
   }
   def blockPanel = new GridPanel(1, 3) {
     border = LineBorder(java.awt.Color.BLACK, 2)
