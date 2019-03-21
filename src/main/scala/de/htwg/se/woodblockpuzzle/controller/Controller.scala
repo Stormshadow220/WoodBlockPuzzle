@@ -114,6 +114,15 @@ class Controller() extends Publisher{
 
   def returnHighscore:Int = this.highscore
 
+  def getBlockType(blocknumber:Int):Int = {
+    blocknumber match {
+      case 1 => b1.blocktype
+      case 2 => b2.blocktype
+      case 3 => b3.blocktype
+      case _ => -1
+    }
+  }
+
   def setCellAt(x:Int,y:Int,v:Int) = if(v < 2){this.field.cells(x)(y).isblocked = v}
 
   def getCellStatusAtField(atx:Int, aty:Int): Int = {

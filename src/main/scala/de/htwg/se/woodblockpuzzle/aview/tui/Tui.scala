@@ -20,6 +20,9 @@ class Tui(var controller : Controller) extends Reactor{
   }
   def processInputLine(input: String):Boolean = {
     var continue = true
+    if(null == input|| input.isEmpty){
+        println("insert a correct command, please")
+    }else{
     input.charAt(0) match {
       case 'q' => continue = false
       case 'n' => {
@@ -39,6 +42,8 @@ class Tui(var controller : Controller) extends Reactor{
           }
         }
       }
+    }
+
     }
     if(continue)printTui
     continue
