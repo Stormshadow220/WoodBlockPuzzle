@@ -35,17 +35,7 @@ class SwingGui(var controller : Controller) extends Frame{
     contents += Button("Block 2") { controller.setChosenBlock(2) }
     contents += Button("Block 3") { controller.setChosenBlock(3) }
   }
-  def blockPanel = new GridPanel(1, 3) {
-    border = LineBorder(java.awt.Color.BLACK, 2)
-    background = java.awt.Color.darkGray
-    preferredSize = new Dimension(300,120)
-    var b1Panel = new BlockPanel(controller.getBlockType(1))
-    var b2Panel = new BlockPanel(controller.getBlockType(2))
-    var b3Panel = new BlockPanel(controller.getBlockType(3))
-    contents += b1Panel
-    contents += b2Panel
-    contents += b3Panel
-  }
+  def blockPanel = new BlockPanel(controller)
 
 
   var statusline = new TextField("last event: "+controller.statusText, 20)
