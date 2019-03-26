@@ -17,25 +17,21 @@ class BlockPanel(controller: Controller) extends GridPanel(1,3){
   contents += getLabel(3)
 
 
-
-
   reactions += {
     case e: FieldChanged => {
-      redraw
       repaint
     }
   }
   def redraw = {
-    contents.clear
-    contents += getLabel(1)
-    contents += getLabel(2)
-    contents += getLabel(3)
+    print("Blocks: "+controller.availableBlocks+"\n")
+    repaint
   }
 
   def getLabel(i: Int): Label = {
     var label = new Label() {
       preferredSize = new Dimension(100,100)
       icon = new ImageIcon("src/main/scala/de/htwg/se/woodblockpuzzle/aview/swing/blockImages/b"+controller.getBlockType(i)+".png")
+      print("Label "+i+": b"+ controller.getBlockType(i)+".png")
     }
     return label
   }

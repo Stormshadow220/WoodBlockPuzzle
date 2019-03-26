@@ -84,7 +84,6 @@ class Controller() extends Publisher{
     setAddStatus(blocknumber, atx, aty, field.returnedBackup)
     deleteFullRows
     if(availableBlocks == 0) create3RandomBlocks
-
     publish(new FieldChanged)
   }
 
