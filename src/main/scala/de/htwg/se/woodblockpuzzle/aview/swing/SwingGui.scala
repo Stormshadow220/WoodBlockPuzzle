@@ -76,7 +76,6 @@ class SwingGui(var controller : Controller) extends Frame{
       x <- 0 until controller.fieldsize){
       cells(x)(y).redraw
     }
-    blockPanel.redraw
     statusline.text = "last event: "+controller.statusText
     countLine.text = "count: " + controller.returnCount.toString +"\n highscore: " + controller.returnHighscore.toString
     repaint

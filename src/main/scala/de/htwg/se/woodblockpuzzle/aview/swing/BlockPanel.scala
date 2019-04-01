@@ -1,7 +1,7 @@
 package de.htwg.se.woodblockpuzzle.aview.swing
 
 import de.htwg.se.woodblockpuzzle.controller.{Controller, FieldChanged}
-import javax.swing.ImageIcon
+import javax.swing.{ImageIcon, SwingUtilities}
 
 import scala.swing.Swing.LineBorder
 import scala.swing._
@@ -19,16 +19,21 @@ class BlockPanel(controller: Controller) extends GridPanel(1,3){
 
   reactions += {
     case e: FieldChanged => {
-      repaint
+      redraw
     }
   }
   def redraw = {
     print("Blocks: "+controller.availableBlocks+"\n")
-    contents.clear
-    //contents += getLabel(1)
-    //contents += getLabel(2)
-    //contents += getLabel(3)
-    repaint
+    SwingUtilities.invokeLater(new Runnable {
+      override def run(): Unit = {
+        contents.clear
+        contents += getLabel(1)
+        contents += getLabel(2)
+        contents += getLabel(3)
+        revalidate
+        repaint
+      }
+    })
   }
 
   def getLabel(i: Int): Label = {
