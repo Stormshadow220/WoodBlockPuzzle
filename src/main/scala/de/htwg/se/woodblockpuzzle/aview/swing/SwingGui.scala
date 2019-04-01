@@ -38,8 +38,8 @@ class SwingGui(var controller : Controller) extends Frame{
   def blockPanel = new BlockPanel(controller)
 
 
-  var statusline = new TextField("last event: "+controller.statusText, 20)
-  var countLine = new Label("count: " + controller.returnCount.toString +"\t highscore: "
+  var statusline = new TextField("Last event: "+controller.statusText, 20)
+  var countLine = new Label("COUNT: " + controller.returnCount.toString +"\t HIGHSCORE: "
     + controller.highscore, null, Alignment.Center)
 
   contents = new BoxPanel(Orientation.Vertical) {
