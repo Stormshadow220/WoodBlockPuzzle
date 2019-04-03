@@ -151,9 +151,16 @@ class ControllerSpec extends WordSpec with Matchers{
         controller1.b1 = new Block(0)
         controller1.addBlock(1, 1, 1)
         controller1.statusText should be("add block 1 to 1 1")
+        "set the status if a block could'nt be added"
         controller1.b1 = new Block(0)
         controller1.addBlock(1, 1, 1)
         controller1.statusText should be("add block 1 to 1 1 failed")
+        "set the status if the player gave up"
+        controller1.giveup
+        controller1.statusText should be("give up")
+        "set the status if the player started a new game"
+        controller1.reset
+        controller1.statusText should be("reset")
       }
       "can use a variable called chosenBlock, to call the addBlock from a view without inserting a number every time."in {
         "usefull for the SwingGui, because it choses the block to add with a button. The clicked chell don't know witch block to add, it only knows its own coordinates"
@@ -164,6 +171,7 @@ class ControllerSpec extends WordSpec with Matchers{
         controller1.addBlock(controller1.getChosenBlock(),1,1)
         controller1.b2.blocktype should be (-1)
       }
+
     }
   }
 }

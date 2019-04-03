@@ -47,7 +47,6 @@ class BlockPanel(controller: Controller) extends GridPanel(1,3){
           clicked(i)
         }
       }
-      println("Label "+i+": b"+ controller.getBlockType(i)+".png")
     }
     return label
   }

@@ -15,6 +15,7 @@ class Controller() extends Publisher{
   var fieldsize = 8
   var availableBlocks = 0
   var highscore = 0
+
   reset
 
   def reset: Unit = {
@@ -31,7 +32,7 @@ class Controller() extends Publisher{
 
   def giveup: Unit = {
     if(this.field.count > highscore){highscore = returnCount}
-    statusText = "Give up"
+    statusText = "give up"
     createField
     this.b1 = Block(-1)
     this.b2 = Block(-1)
@@ -154,5 +155,8 @@ class Controller() extends Publisher{
 
   def reverse(): Unit ={
     
+  }
+  def saveState(): Unit ={
+
   }
 }
