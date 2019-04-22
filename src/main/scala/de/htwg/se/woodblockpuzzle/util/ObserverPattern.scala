@@ -1,10 +1,10 @@
 package de.htwg.se.woodblockpuzzle.util
 
-import de.htwg.se.woodblockpuzzle.util.Observable
-import de.htwg.se.woodblockpuzzle.util.Observer
+//import de.htwg.se.woodblockpuzzle.util.Observable
+//import de.htwg.se.woodblockpuzzle.util.Observer
 
 class TestObject extends Observer {
-  def update = println("Ping")
+  def update: Unit = println("Ping")
 }
 
 class ObserverPattern {

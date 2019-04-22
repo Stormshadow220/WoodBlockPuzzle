@@ -3,9 +3,10 @@ import de.htwg.se.woodblockpuzzle.model.{Block, Field}
 import scala.swing.event.Event
 import scala.swing.Publisher
 
+
 case class FieldChanged() extends Event
 
-class Controller() extends Publisher{
+class Controller() extends Publisher {
   var statusText = "WoodBlockPuzzle"
   var field: Field = Field(0)
   var b1: Block = Block(-1)
@@ -31,7 +32,9 @@ class Controller() extends Publisher{
   }
 
   def giveup: Unit = {
-    if(this.field.count > highscore){highscore = returnCount}
+    if (this.field.count > highscore) {
+      highscore = returnCount
+    }
     statusText = "give up"
     createField
     this.b1 = Block(-1)
@@ -45,18 +48,16 @@ class Controller() extends Publisher{
   def createField: Unit = this.field = Field(fieldsize)
 
   def createBlock(x: Int): Block = {
-    var b = Block(x)
-    b
+    Block(x)
   }
 
-  def create3RandomBlocks = {
-    var r = scala.util.Random
+  def create3RandomBlocks: Unit = {
+    val r = scala.util.Random
     this.b1 = createBlock(r.nextInt(17))
     this.b2 = createBlock(r.nextInt(17))
     this.b3 = createBlock(r.nextInt(17))
     this.availableBlocks = 3
   }
-
 
   def addBlock(blocknumber: Int, atx: Int, aty: Int): Unit = {
     blocknumber match {
@@ -82,13 +83,16 @@ class Controller() extends Publisher{
         }
       }
     }
+
     setAddStatus(blocknumber, atx, aty, field.returnedBackup)
     deleteFullRows
-    if(availableBlocks == 0) create3RandomBlocks
+    if (availableBlocks == 0) create3RandomBlocks
     publish(new FieldChanged)
   }
 
-  def setChosenBlock(chosen: Int) : Unit = chosenBlock = chosen
+  def setChosenBlock(chosen: Int): Unit = {
+    chosenBlock = chosen
+  }
 
   def getChosenBlock():Int = chosenBlock
 
@@ -100,10 +104,11 @@ class Controller() extends Publisher{
       case _ => "Block doesn't exist"
     }
   }
-  def setAddStatus(block: Int, x: Int, y: Int, failed: Boolean) :Unit = {
-    if(failed){
+
+  def setAddStatus(block: Int, x: Int, y: Int, failed: Boolean): Unit = {
+    if (failed){
       this.statusText = "add block " + block + " to " + x + " " + y + " failed"
-    }else{
+    } else {
       this.statusText = "add block " + block + " to " + x + " " + y
     }
   }
@@ -114,7 +119,7 @@ class Controller() extends Publisher{
 
   def showFieldWithCoordinates(): String = this.field.toStringWithCoordinates
 
-  def deleteFullRows() = this.field.eightInARow()
+  def deleteFullRows(): Unit = this.field.eightInARow()
 
   def returnCount:Int = this.field.count
 
@@ -129,34 +134,35 @@ class Controller() extends Publisher{
     }
   }
 
-  def setCellAt(x:Int,y:Int,v:Int) = if(v < 2){this.field.cells(x)(y).isblocked = v}
+  def setCellAt(x:Int,y:Int,v:Int): Unit = if (v < 2) {
+    this.field.cells(x)(y).isblocked = v
+  }
 
   def getCellStatusAtField(atx:Int, aty:Int): Int = {
-    if(atx <= this.fieldsize && aty <= this.fieldsize){
+    if (atx <= this.fieldsize && aty <= this.fieldsize) {
       this.field.cells(atx-1)(aty-1).isblocked
-    }else{
+    } else {
       -1
     }
   }
-  def getCellStatusAtBlock(blocknumber:Int,atx:Int, aty:Int): Int = {
+
+  def getCellStatusAtBlock(blocknumber:Int, atx:Int, aty:Int): Int = {
     blocknumber match {
-      case 1 => if(atx < this.b1.blockmaxx && aty < this.b1.blockmaxy){
-        this.b1.cells(atx)(aty).isblocked
-      }else{-1}
-      case 2 => if(atx < this.b2.blockmaxx && aty < this.b2.blockmaxy){
-        this.b2.cells(atx)(aty).isblocked
-      }else{-1}
-      case 3 => if(atx < this.b3.blockmaxx && aty < this.b3.blockmaxy){
-        this.b3.cells(atx)(aty).isblocked
-      }else{-1}
+      case 1 =>
+        if (atx < this.b1.blockmaxx && aty < this.b1.blockmaxy) this.b1.cells(atx)(aty).isblocked else -1
+      case 2 =>
+        if (atx < this.b2.blockmaxx && aty < this.b2.blockmaxy) this.b2.cells(atx)(aty).isblocked else -1
+      case 3 =>
+        if (atx < this.b3.blockmaxx && aty < this.b3.blockmaxy) this.b3.cells(atx)(aty).isblocked else -1
       case _ => -1
     }
   }
 
-  def reverse(): Unit ={
+  def reverse(): Unit = {
     
   }
-  def saveState(): Unit ={
+
+  def saveState(): Unit = {
 
   }
 }

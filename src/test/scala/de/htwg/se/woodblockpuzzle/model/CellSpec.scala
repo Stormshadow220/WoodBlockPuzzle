@@ -1,5 +1,4 @@
 package de.htwg.se.woodblockpuzzle.model
-
 import org.scalatest._
 
 
