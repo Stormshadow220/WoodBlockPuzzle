@@ -1,5 +1,7 @@
 package de.htwg.se.woodblockpuzzle.controller
 import de.htwg.se.woodblockpuzzle.model.{Block, Field}
+
+import scala.collection.mutable
 import scala.swing.event.Event
 import scala.swing.Publisher
 
@@ -16,6 +18,7 @@ class Controller() extends Publisher {
   var fieldsize = 8
   var availableBlocks = 0
   var highscore = 0
+  var history = mutable.Stack[state]()
 
   reset
 
@@ -159,10 +162,27 @@ class Controller() extends Publisher {
   }
 
   def reverse(): Unit = {
-    
+    if(!history.isEmpty) {
+      val s = history.pop()
+      this.field = s.field
+      this.b1 = s.b1
+      this.b2 = s.b2
+      this.b3 = s.b3
+      this.availableBlocks = s.availableBlocks
+      this.highscore = s.highscore
+    }
   }
 
   def saveState(): Unit = {
-
+    this.history.push(new state(this.field, this.b1, this.b2, this.b3, this.availableBlocks, this.highscore))
   }
+}
+
+case class state(var f:Field, v1:Block, v2:Block, v3:Block, a:Int, h:Int){
+  var field: Field = f
+  var b1: Block = v1
+  var b2: Block = v2
+  var b3: Block = v3
+  var availableBlocks:Int = a
+  var highscore:Int = h
 }

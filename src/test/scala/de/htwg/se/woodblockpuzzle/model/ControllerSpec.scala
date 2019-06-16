@@ -14,6 +14,9 @@ class ControllerSpec extends WordSpec with Matchers {
         controller1.b2.blocktype should not be(-1)
         controller1.b3.blocktype should not be(-1)
       }
+      "also should set a new stack of states for the play-history" in {
+        controller1.history.size should be (0)
+      }
     }
 
     "in use" should {
