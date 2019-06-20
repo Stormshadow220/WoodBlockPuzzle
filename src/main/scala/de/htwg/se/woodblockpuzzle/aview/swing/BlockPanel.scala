@@ -45,8 +45,17 @@ class BlockPanel(controller: Controller) extends GridPanel(1,3) {
   def getLabel(i: Int): Label = {
     var label = new Label() {
       preferredSize = new Dimension(100,100)
-      icon = new ImageIcon("src/main/scala/de/htwg/se/woodblockpuzzle/aview/swing/blockImages/b" +
-        controller.getBlockType(i) + ".png")
+
+      var colorChoice = ""
+      val randomizer = scala.util.Random
+      randomizer.nextInt(2) match {
+        case 0 => colorChoice = ""
+        case 1 => colorChoice = "red "
+        case 2 => colorChoice = "blue "
+      }
+
+      icon = new ImageIcon("src/main/scala/de/htwg/se/woodblockpuzzle/aview/swing/blockImages/" +
+                                      colorChoice + "b" + controller.getBlockType(i) + ".png")
       listenTo(mouse.clicks)
       reactions += {
         case MouseClicked(_, _, _, _, _) => {
