@@ -6,26 +6,33 @@ import de.htwg.se.woodblockpuzzle.controller.FieldChanged
 
 
 class CellPanel(x: Int, y: Int, controller: Controller) extends FlowPanel {
-  val emptyCellColor = java.awt.Color.darkGray
-  val blockedCellColor = java.awt.Color.green
-  var cellBlocked = controller.getCellStatusAtField(x, y) == 1
+  val emptyCellColor: java.awt.Color = java.awt.Color.darkGray
 
+  var color: java.awt.Color = emptyCellColor
+  val randomizer: scala.util.Random = scala.util.Random
+  randomizer.nextInt(3) match {
+    case 0 => color = java.awt.Color.green
+    case 1 => color = java.awt.Color.red
+    case 2 => color = java.awt.Color.blue
+  }
+
+  val blockedCellColor: java.awt.Color = color
+  var cellBlocked: Boolean = controller.getCellStatusAtField(x, y) == 1
 
   background = if (!cellBlocked) emptyCellColor else blockedCellColor
   border = Swing.BeveledBorder(Swing.Raised)
   listenTo(mouse.clicks)
   listenTo(controller)
   reactions += {
-    case _: FieldChanged => {
+    case _: FieldChanged =>
       repaint
-    }
-    case MouseClicked(_, _, _, _, _) => {
+
+    case MouseClicked(_, _, _, _, _) =>
       controller.addBlock(controller.chosenBlock,x,y)
       repaint
-    }
   }
 
-  def redraw: Unit = {
+  def redraw(): Unit = {
     cellBlocked = controller.getCellStatusAtField(x, y) == 1
     setBackground(this)
     repaint
