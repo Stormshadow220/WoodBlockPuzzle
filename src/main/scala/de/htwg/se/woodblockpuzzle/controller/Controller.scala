@@ -31,6 +31,7 @@ class Controller() extends Publisher {
     this.availableBlocks = 0
     highscore = 0
     create3RandomBlocks
+    history.clear()
     publish(new FieldChanged)
   }
 
@@ -45,6 +46,7 @@ class Controller() extends Publisher {
     this.b3 = Block(-1)
     this.availableBlocks = 0
     create3RandomBlocks
+    history.clear()
     publish(new FieldChanged)
   }
 
@@ -69,6 +71,7 @@ class Controller() extends Publisher {
         if (!field.isReturnedBackup) {
           availableBlocks -= 1
           b1 = Block(-1)
+          saveState
         }
       }
       case 2 => {
@@ -76,6 +79,7 @@ class Controller() extends Publisher {
         if (!field.isReturnedBackup) {
           availableBlocks-=1
           b2 = Block(-1)
+          saveState
         }
       }
       case 3 => {
@@ -83,10 +87,10 @@ class Controller() extends Publisher {
         if (!field.isReturnedBackup) {
           availableBlocks-=1
           b3 = Block(-1)
+          saveState
         }
       }
     }
-
     setAddStatus(blocknumber, atx, aty, field.returnedBackup)
     deleteFullRows
     if (availableBlocks == 0) create3RandomBlocks
@@ -163,18 +167,23 @@ class Controller() extends Publisher {
 
   def reverse(): Unit = {
     if(!history.isEmpty) {
-      val s = history.pop()
-      this.field = s.field
-      this.b1 = s.b1
-      this.b2 = s.b2
-      this.b3 = s.b3
-      this.availableBlocks = s.availableBlocks
-      this.highscore = s.highscore
+      val actualState = history.pop
+      val prevState = history.pop
+      this.field = prevState.field
+      this.b1 = prevState.b1
+      this.b2 = prevState.b2
+      this.b3 = prevState.b3
+      this.availableBlocks = prevState.availableBlocks
+      this.highscore = prevState.highscore
+      statusText = "reverse"
+      print("Reverse Anzahl:" + history.size +"\n")
+      publish(new FieldChanged)
     }
   }
 
   def saveState(): Unit = {
     this.history.push(new state(this.field, this.b1, this.b2, this.b3, this.availableBlocks, this.highscore))
+    print("SaveState Anzahl:" + history.size +"\n")
   }
 }
 

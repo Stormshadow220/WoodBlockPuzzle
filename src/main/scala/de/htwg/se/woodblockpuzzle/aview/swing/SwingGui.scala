@@ -67,6 +67,7 @@ class SwingGui(var controller : Controller) extends Frame{
       mnemonic = Key.G
       contents += new MenuItem(Action("New") { controller.reset})
       contents += new MenuItem(Action("Give Up") {controller.giveup})
+      contents += new MenuItem(Action("Reverse") { controller.reverse})
       contents += new MenuItem(Action("Quit") { System.exit(0) })
     }
     contents += new Label("                ")
