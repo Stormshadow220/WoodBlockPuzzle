@@ -167,16 +167,16 @@ class Controller() extends Publisher {
 
   def reverse(): Unit = {
     if(!history.isEmpty) {
-      val actualState = history.pop
+      //val actualState = history.pop
       val prevState = history.pop
-      this.field = prevState.field
+      this.field = prevState.field.copy()
       this.b1 = prevState.b1
       this.b2 = prevState.b2
       this.b3 = prevState.b3
       this.availableBlocks = prevState.availableBlocks
       this.highscore = prevState.highscore
       statusText = "reverse"
-      print("Reverse Anzahl:" + history.size +"\n")
+      print("Reverse Anzahl:" + history.size + "\n")
       publish(new FieldChanged)
     }
   }
@@ -188,10 +188,10 @@ class Controller() extends Publisher {
 }
 
 case class state(var f:Field, v1:Block, v2:Block, v3:Block, a:Int, h:Int){
-  var field: Field = f
-  var b1: Block = v1
-  var b2: Block = v2
-  var b3: Block = v3
+  var field: Field = f.copy()
+  var b1: Block = v1.copy()
+  var b2: Block = v2.copy()
+  var b3: Block = v3.copy()
   var availableBlocks:Int = a
   var highscore:Int = h
 }
