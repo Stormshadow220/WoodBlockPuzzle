@@ -19,6 +19,7 @@ class Controller() extends Publisher {
   var availableBlocks = 0
   var highscore = 0
   var history = mutable.Stack[state]()
+  var firstReverse = false
 
   reset
 
@@ -65,13 +66,13 @@ class Controller() extends Publisher {
   }
 
   def addBlock(blocknumber: Int, atx: Int, aty: Int): Unit = {
+    saveState
     blocknumber match {
       case 1 => {
         field = field + (b1, atx - 1, aty - 1)
         if (!field.isReturnedBackup) {
           availableBlocks -= 1
           b1 = Block(-1)
-          saveState
         }
       }
       case 2 => {
@@ -79,7 +80,6 @@ class Controller() extends Publisher {
         if (!field.isReturnedBackup) {
           availableBlocks-=1
           b2 = Block(-1)
-          saveState
         }
       }
       case 3 => {
@@ -87,12 +87,15 @@ class Controller() extends Publisher {
         if (!field.isReturnedBackup) {
           availableBlocks-=1
           b3 = Block(-1)
-          saveState
         }
       }
     }
+    if(field.isReturnedBackup){
+      history.pop
+    }
     setAddStatus(blocknumber, atx, aty, field.returnedBackup)
     deleteFullRows
+
     if (availableBlocks == 0) create3RandomBlocks
     publish(new FieldChanged)
   }
@@ -167,14 +170,21 @@ class Controller() extends Publisher {
 
   def reverse(): Unit = {
     if(!history.isEmpty) {
-      //val actualState = history.pop
+      if(firstReverse && history.size >=2){
+        firstReverse = false
+        history.pop
+      }
       val prevState = history.pop
-      this.field = prevState.field.copy()
+      for (y <- 0 until this.field.fieldsize) {
+        for (x <- 0 until this.field.fieldsize) {
+          this.field.cells(x)(y) = prevState.field.cells(x)(y)
+        }
+      }
       this.b1 = prevState.b1
       this.b2 = prevState.b2
       this.b3 = prevState.b3
       this.availableBlocks = prevState.availableBlocks
-      this.highscore = prevState.highscore
+      this.field.count = prevState.field.count
       statusText = "reverse"
       print("Reverse Anzahl:" + history.size + "\n")
       publish(new FieldChanged)
@@ -182,16 +192,22 @@ class Controller() extends Publisher {
   }
 
   def saveState(): Unit = {
-    this.history.push(new state(this.field, this.b1, this.b2, this.b3, this.availableBlocks, this.highscore))
+    this.history.push(new state(this.field, this.b1, this.b2, this.b3, this.availableBlocks))
+    firstReverse = true
     print("SaveState Anzahl:" + history.size +"\n")
   }
 }
 
-case class state(var f:Field, v1:Block, v2:Block, v3:Block, a:Int, h:Int){
-  var field: Field = f.copy()
-  var b1: Block = v1.copy()
-  var b2: Block = v2.copy()
-  var b3: Block = v3.copy()
+case class state(var f:Field, v1:Block, v2:Block, v3:Block, a:Int){
+  var field = Field(8)
+  field.count = f.count
+  for (y <- 0 until f.fieldsize) {
+    for (x <- 0 until f.fieldsize) {
+      field.cells(x)(y) = f.cells(x)(y)
+    }
+  }
+  var b1: Block = Block(v1.blocktype)
+  var b2: Block = Block(v2.blocktype)
+  var b3: Block = Block(v3.blocktype)
   var availableBlocks:Int = a
-  var highscore:Int = h
 }

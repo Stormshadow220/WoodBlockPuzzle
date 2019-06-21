@@ -12,6 +12,10 @@ case class Field(fs: Int) {
   }
 
   def + (that:Block, atx:Int, aty:Int): Field = {
+    if(that.blocktype == -1){
+      returnedBackup = true
+      return this
+    }
     returnedBackup = false
     var backup = Field(8)
     backup.count = this.count
@@ -21,19 +25,21 @@ case class Field(fs: Int) {
       }
     }
     if (aty + that.blockmaxy > fieldsize || atx + that.blockmaxx > fieldsize){
-      backup
+      returnedBackup = true
+      return backup
     }
     for (y <- 0 until that.blockmaxy;
          x <- 0 until that.blockmaxx) {
       if (x <= fieldsize && y <= fieldsize){
         this.cells(atx + x)(aty + y) = this.cells(atx + x)(aty + y) + that.cells(x)(y)
       } else {
-        backup
+        returnedBackup = true
+        return backup
       }
     }
     if(!fit) {
       returnedBackup = true
-      backup
+      return backup
     }
     this
   }
@@ -66,8 +72,8 @@ case class Field(fs: Int) {
   def fit(): Boolean = {
     for (y <- 0 until fieldsize;
          x <- 0 until fieldsize){
-      if(this.cells(x)(y).isblocked > 1){
-        false
+      if(this.cells(x)(y).isblocked >= 2){
+        return false
       }
     }
     true
@@ -82,7 +88,7 @@ case class Field(fs: Int) {
       if (isBlocked(0, pos) && isBlocked(1, pos) && isBlocked(2, pos) && isBlocked(3, pos) &&
         isBlocked(4, pos) && isBlocked(5, pos) && isBlocked(6, pos) && isBlocked(7, pos)) {
 
-        for (i <- 0 until 7) {
+        for (i <- 0 to 7) {
           this.cells(i)(pos).isblocked = 0
         }
 
@@ -92,12 +98,22 @@ case class Field(fs: Int) {
       if (isBlocked(pos, 0) && isBlocked(pos, 1) && isBlocked(pos, 2) && isBlocked(pos, 3) &&
         isBlocked(pos, 4) && isBlocked(pos, 5) && isBlocked(pos, 6) && isBlocked(pos, 7)) {
 
-        for (i <- 0 until 7) {
+        for (i <- 0 to 7) {
           this.cells(pos)(i).isblocked = 0
         }
 
         this.count = this.count + fieldsize
       }
     }
+  }
+  def getCopy(): Field = {
+    var f = new Field(8)
+    for (y <- 0 until this.fieldsize){
+      for (x <- 0 until this.fieldsize) {
+        f.cells(x)(y) = this.cells(x)(y)
+      }
+    }
+    f.count = this.count
+    return f
   }
 }

@@ -181,6 +181,9 @@ class ControllerSpec extends WordSpec with Matchers {
         controller1.addBlock(controller1.getChosenBlock(),1,1)
         controller1.b2.blocktype should be (-1)
       }
+      "nothing should change, if we try to add a empty block with blocktype = -1 to a field" in{
+        controller1.reset
+      }
     }
   }
 }
