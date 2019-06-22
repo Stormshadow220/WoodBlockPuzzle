@@ -19,7 +19,6 @@ class Controller() extends Publisher {
   var availableBlocks = 0
   var highscore = 0
   var history = mutable.Stack[state]()
-  var firstReverse = false
 
   reset
 
@@ -170,10 +169,6 @@ class Controller() extends Publisher {
 
   def reverse(): Unit = {
     if(!history.isEmpty) {
-      if(firstReverse && history.size >=2){
-        firstReverse = false
-        history.pop
-      }
       val prevState = history.pop
       for (y <- 0 until this.field.fieldsize) {
         for (x <- 0 until this.field.fieldsize) {
@@ -186,15 +181,12 @@ class Controller() extends Publisher {
       this.availableBlocks = prevState.availableBlocks
       this.field.count = prevState.field.count
       statusText = "reverse"
-      print("Reverse Anzahl:" + history.size + "\n")
       publish(new FieldChanged)
     }
   }
 
   def saveState(): Unit = {
     this.history.push(new state(this.field, this.b1, this.b2, this.b3, this.availableBlocks))
-    firstReverse = true
-    print("SaveState Anzahl:" + history.size +"\n")
   }
 }
 
@@ -203,7 +195,7 @@ case class state(var f:Field, v1:Block, v2:Block, v3:Block, a:Int){
   field.count = f.count
   for (y <- 0 until f.fieldsize) {
     for (x <- 0 until f.fieldsize) {
-      field.cells(x)(y) = f.cells(x)(y)
+      field.cells(x)(y).isblocked = f.cells(x)(y).isblocked
     }
   }
   var b1: Block = Block(v1.blocktype)

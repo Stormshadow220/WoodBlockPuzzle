@@ -161,10 +161,10 @@ class ControllerSpec extends WordSpec with Matchers {
 
       "set a status for all relevant events, that happend recently" in {
         controller1.reset
-        controller1.b1 = new Block(0)
+        controller1.b1 = Block(0)
         controller1.addBlock(1, 1, 1)
         controller1.statusText should be("add block 1 to 1 1")
-        controller1.b1 = new Block(0)
+        controller1.b1 = Block(0)
         controller1.addBlock(1, 1, 1)
         controller1.statusText should be("add block 1 to 1 1 failed")
         controller1.giveup
@@ -183,6 +183,22 @@ class ControllerSpec extends WordSpec with Matchers {
       }
       "nothing should change, if we try to add a empty block with blocktype = -1 to a field" in{
         controller1.reset
+        controller1.b1 = Block(3)
+        controller1.addBlock(1,1,1)
+        controller1.availableBlocks should be(2)
+        controller1.addBlock(1, 4, 4)
+        controller1.availableBlocks should be(2)
+      }
+      "can reverse all moves since the last reset"
+      ""in{
+        controller1.reset
+        controller1.addBlock(1,1,1)
+        controller1.reverse()
+        for(y <- 0 until controller1.field.fieldsize;
+            x <- 0 until controller1.field.fieldsize){
+          controller1.field.cells(x)(y).isblocked should be(0)
+        }
+        controller1.statusText should be("reverse")
       }
     }
   }
