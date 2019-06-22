@@ -106,14 +106,4 @@ case class Field(fs: Int) {
       }
     }
   }
-  def getCopy(): Field = {
-    var f = new Field(8)
-    for (y <- 0 until this.fieldsize){
-      for (x <- 0 until this.fieldsize) {
-        f.cells(x)(y) = this.cells(x)(y)
-      }
-    }
-    f.count = this.count
-    return f
-  }
 }

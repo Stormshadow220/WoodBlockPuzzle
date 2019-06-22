@@ -1,10 +1,8 @@
-# Htwg Scala Seed Project 
+# Woodblockpuzzle
 =====================================================
-## the easiest way to start a project for the lecture SE
+A game from two students for the lecture SoftwareEngineering
 
-
-This is a seed project to create a basic scala project as used in the
-class Software Engineering at the University of Applied Science HTWG Konstanz.
+* at the University of Applied Science HTWG Konstanz.
 
 It requires Java 8 on your local platform.
 The project has

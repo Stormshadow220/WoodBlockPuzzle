@@ -108,13 +108,6 @@ class FieldSpec extends WordSpec with Matchers {
         val s = field.toString
         s should be("1 1 1 1 \n0 0 0 0 \n0 0 0 0 \n0 0 0 0 \n")
       }
-      "Can broduce a copy of its cells and counter as a backup" in{
-        var field = Field(8)
-        var backup = field.getCopy()
-        field.cells(0)(0).isblocked = 1
-        backup.cells(0)(0).isblocked should be(0)
-
-      }
     }
   }
 }

@@ -189,8 +189,7 @@ class ControllerSpec extends WordSpec with Matchers {
         controller1.addBlock(1, 4, 4)
         controller1.availableBlocks should be(2)
       }
-      "can reverse all moves since the last reset"
-      ""in{
+      "can reverse all moves since the last reset"in{
         controller1.reset
         controller1.addBlock(1,1,1)
         controller1.reverse()
