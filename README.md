@@ -1,5 +1,5 @@
 # Woodblockpuzzle
-[![Build Status](https://travis-ci.com/Stormshadow220/WoodBlockPuzzle.svg?branch=master)]
+![Build Status](https://travis-ci.com/Stormshadow220/WoodBlockPuzzle.svg?branch=master)
 (https://travis-ci.org/Stormshadow220/WoodBlockPuzzle)
 
 =====================================================
