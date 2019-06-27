@@ -1,8 +1,10 @@
 language : scala
 scala :
- - 2.12.4
+- 2.12.4
 script:
- -sbt clean coverage test coverageReport
+-sbt test
+branches:
+ only:
+-master
 
-after_success:
- - sbt coverageReport coveralls
+
