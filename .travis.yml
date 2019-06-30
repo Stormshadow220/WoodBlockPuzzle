@@ -2,9 +2,9 @@ language : scala
 scala :
 - 2.12.4
 script:
--sbt test
+- sbt test
 branches:
  only:
--master
+- master
 
 
