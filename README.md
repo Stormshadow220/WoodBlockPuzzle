@@ -1,6 +1,8 @@
 # Woodblockpuzzle
 [![Build Status](https://travis-ci.org/Stormshadow220/WoodBlockPuzzle.svg?branch=master)](https://travis-ci.org/Stormshadow220/WoodBlockPuzzle)
 
+[![Coverage Status](https://coveralls.io/repos/github/Stormshadow220/WoodBlockPuzzle/badge.svg?branch=master)](https://coveralls.io/github/Stormshadow220/WoodBlockPuzzle
+?branch=master)
 =====================================================
 A game from two students for the lecture SoftwareEngineering
 
