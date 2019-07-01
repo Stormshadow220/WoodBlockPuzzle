@@ -1,8 +1,9 @@
 language : scala
 scala :
  - 2.12.4
-script:
- - sbt test
+script: "sbt clean coverage test"
+after_success: "sbt coveralls"
+
 branches:
  only:
   - master
