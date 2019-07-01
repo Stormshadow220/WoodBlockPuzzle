@@ -15,7 +15,7 @@ class ControllerSpec extends WordSpec with Matchers {
         controller1.b3.blocktype should not be(-1)
       }
       "also should set a new stack of states for the play-history" in {
-        controller1.history.size should be (0)
+        controller1.history.size should be(0)
       }
     }
 
@@ -186,10 +186,11 @@ class ControllerSpec extends WordSpec with Matchers {
         controller1.b1 = Block(3)
         controller1.addBlock(1,1,1)
         controller1.availableBlocks should be(2)
+        controller1.b1.blocktype should be (-1)
         controller1.addBlock(1, 4, 4)
         controller1.availableBlocks should be(2)
       }
-      "can reverse all moves since the last reset"in{
+      "can reverse a move since the last reset"in{
         controller1.reset
         controller1.addBlock(1,1,1)
         controller1.reverse()
@@ -198,6 +199,32 @@ class ControllerSpec extends WordSpec with Matchers {
           controller1.field.cells(x)(y).isblocked should be(0)
         }
         controller1.statusText should be("reverse")
+      }
+      "can reverse multiple moves since the last reset"in{
+        controller1.reset
+        controller1.b1 = Block(1)
+        controller1.b2 = Block(1)
+        controller1.b3 = Block(1)
+        controller1.addBlock(1,1,1)
+        controller1.addBlock(2,3,1)
+        controller1.addBlock(3,5,1)
+        controller1.reverse()
+        controller1.reverse()
+        controller1.reverse()
+        for(y <- 0 until controller1.field.fieldsize;
+            x <- 0 until controller1.field.fieldsize){
+          controller1.field.cells(x)(y).isblocked should be(0)
+        }
+        controller1.statusText should be("reverse")
+      }
+      "should push states on the stack history when adding a block and pop, if reverse is used"in{
+        controller1.reset
+        controller1.addBlock(1,1,1)
+        controller1.history.size should be(1)
+        controller1.reverse()
+        controller1.history.size should be(0)
+        controller1.addBlock(1,1,1)
+        controller1.history.size should be(1)
       }
     }
   }
