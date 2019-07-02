@@ -2,7 +2,9 @@ language : scala
 scala :
  - 2.12.4
 script:
- - sbt test
+ - sbt clean coverage test coerageReport
+after_success:
+ - sbt coverageReport coveralls
 branches:
  only:
   - master
