@@ -12,5 +12,6 @@ object WoodBlockPuzzle {
 
   def main(args: Array[String]): Unit = {
     while(tui.processInputLine(scala.io.StdIn.readLine())){}
+    System.exit(0)
   }
 }
