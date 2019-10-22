@@ -226,6 +226,12 @@ class ControllerSpec extends WordSpec with Matchers {
         controller1.addBlock(1,1,1)
         controller1.history.size should be(1)
       }
+      "test for getCellStatusAtBlock and WebTech"in{
+        controller1.reset
+        controller1.b1 = Block(14)
+        print(controller1.b1)
+        controller1.getCellStatusAtBlock(1,0,0) should be(0)
+      }
     }
   }
 }
